@@ -13,6 +13,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/admin" element={<Admin />} />
       </Routes>
+      <div>HEllo</div>
     </div>
     
   );
