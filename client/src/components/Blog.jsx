@@ -12,6 +12,13 @@ const BlogCard = () => {
                 <h2 className="text-2xl font-bold text-left">
                     Need to stay up-to-date with the most relevant trends in software, such as AI, cloud computing, and all things frontend?
                 </h2>
+                <p className="list-none flex gap-6">
+                    <li>#tech</li>
+                    <li>#Gadgets</li>
+                    <li>#news</li>
+                    <li>#students</li>
+                    <li>#react</li>
+                </p>
                 <p className="text-left">
                     You can do so much more once you create your account. Follow the devs and topics you care about, and keep up-to-date.
                 </p>
