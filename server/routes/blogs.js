@@ -4,6 +4,10 @@ const User = require('../models/User');
 
 const router = express.Router();
 
+router.get('/', async (req, res) => {
+  res.send("Hello from router")
+})
+
 // Middleware to check admin status
 const checkAdmin = async (req, res, next) => {
   const user = await User.findById(req.user.id);
