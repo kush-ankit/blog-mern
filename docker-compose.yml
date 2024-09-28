@@ -1,0 +1,38 @@
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: server-app
+    command: npm start
+    volumes:
+      - "./server:/app/server"
+      - "/app/server/node_modules"
+    ports:
+      - "4000:4000"
+    networks:
+      - app-networks
+    
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: client-app
+    depends_on:
+      - server
+    volumes:
+      - "./client:/app/client"
+      - "/app/client/node_modules"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    ports:
+      - "5173:5173"
+    command: npm run dev
+    networks:
+      - app-networks
+
+
+networks:
+  app-networks:
+    driver: bridge
