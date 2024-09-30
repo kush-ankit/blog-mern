@@ -3,7 +3,6 @@ const User = require("../models/User");
 module.exports.profile = async (req, res) => {
     try {
         let id = req.userid;
-        console.log(id)
         if (id) {
             const user = await User.findById(id);
             return res.status(201).json({ status: true, profile: user });
