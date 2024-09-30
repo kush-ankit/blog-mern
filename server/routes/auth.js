@@ -5,7 +5,8 @@ const User = require('../models/User');
 
 const authRoutes = express.Router();
 
-authRoutes.use((req, res, next) => {
+
+authRoutes.get('/valid', (req, res, next) => {
     try {
         const { token } = req.headers;
         if (!token) {
@@ -33,6 +34,7 @@ authRoutes.post('/register', async (req, res) => {
         res.status(400).json({ message: e.message });
     }
 });
+
 
 authRoutes.post('/login', async (req, res) => {
     try {
