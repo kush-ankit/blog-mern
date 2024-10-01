@@ -1,6 +1,6 @@
 const Blog = require("../models/Blog")
 
-exports.getAllPosts = async (req, res, next) => {
+module.exports.getAllPosts = async (req, res, next) => {
     try {
         const posts = await Blog.find();
         return res.status(200).json({ status: true, posts: posts });
@@ -25,3 +25,19 @@ module.exports.createPost = async (req, res) => {
 }
 
 
+module.exports.deletePost = async (req, res) => {
+    try {
+        let id = req.params.id;
+        let uid = req.userid;
+        let { author } = await Blog.findById(id);
+        console.log(typeof uid, typeof author, { "author": author, "uid": uid });
+        if (uid == author) {
+            await Blog.findByIdAndDelete(id);
+            return res.status(200).json({ status: true, message: 'Post deleted successfully' });
+        } else {
+            return res.status(401).json({ status: false, message: 'Unauthorized to delete this post' });
+        }
+    } catch (error) {
+        return res.status(401).json({ status: true, message: "Error deleting post" });
+    }
+}
