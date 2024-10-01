@@ -11,7 +11,7 @@ function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/blog/all')
+        const response = await axios.get('http://192.168.1.131:4000/api/blog/all')
         const { status, posts } = await response.data;
         if (status) {
           setBlogs(posts)

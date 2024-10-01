@@ -29,6 +29,6 @@ app.use("/api/blog", require("./routes/blogs"))
 app.use("/api/auth", require("./routes/auth"))
 app.use("/api/user", require("./routes/user"));
 
-app.listen(PORT, () => {
+app.listen(PORT, '192.168.1.131', () => {
   console.log('Server is running on port 4000');
 });

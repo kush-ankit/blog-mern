@@ -1,4 +1,38 @@
+import { useState } from "react"
+
 export const LoginCard = () => {
+
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
+
+  const validateEmail = (email) => {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(String(email).toLowerCase());
+  };
+
+
+
+  const validateForm = () => {
+    const validationErrors = {};
+
+    if (!email) {
+      validationErrors.email = "Email is required";
+    } else if (!validateEmail(email)) {
+      validationErrors.email = "Invalid email address";
+    }
+
+    if (!password) {
+      validationErrors.password = "Password is required";
+    } else if (password.length < 6) {
+      validationErrors.password = "Password must be at least 6 characters";
+    }
+
+    return validationErrors;
+  };
+
+
   return (
     <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
       <div className="flex flex-col items-center">
@@ -22,6 +56,7 @@ export const LoginCard = () => {
               required
               className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               placeholder="Email address"
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div>
