@@ -4,6 +4,9 @@ import BlogCard from '../components/Blog';
 
 function Dashboard() {
   const [blogs, setBlogs] = useState([]);
+  let likes=0;
+  let posts=0;
+  let comments=0;
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -31,7 +34,7 @@ function Dashboard() {
         <p className='p-2 font-bold'>bio- i am feeling good. </p>
         <p>date of joining - dd/mm/yyyy</p>
         <div className='flex justify-evenly p-2 font-medium mt-1 '>
-          <span>0 posts</span> <span>0 commments</span> <span>0 likes</span>
+          <span>{posts} posts</span> <span>{comments}commments</span> <span>{likes} likes</span>
         </div>
         </div>
       </header>
