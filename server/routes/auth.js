@@ -8,7 +8,7 @@ const { login, register, validate } = require('../controllers/authController');
 const authRoutes = express.Router();
 
 
-authRoutes.post('/valid', validate)
+authRoutes.get('/valid', validate)
 
 
 authRoutes.post('/register', register);
