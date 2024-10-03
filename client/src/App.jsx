@@ -20,12 +20,12 @@ function App() {
   const setUser = useUserStore((state) => state.setUser);
 
   useEffect(() => {
+    setReady(true);
     const fetchUserWithCookie = async () => {
       let response = await axios.get(`${serverURI}/api/auth/valid`, { headers: { 'Content-Type': 'application/json' }, withCredentials: true })
       if (response.data.status) {
         setUser(response.data.user.name, response.data.user.email, response.data.user._id, response.data.user.isAdmin);
         setLogin(true);
-        setReady(true);
       } else throw new Error(response.data.message);
     };
     fetchUserWithCookie();
