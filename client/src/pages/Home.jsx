@@ -26,7 +26,7 @@ function Home() {
 
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <main className="flex-grow flex flex-row justify-center text-center p-4">
         <section className="w-[25%]">
           <Left_Box />

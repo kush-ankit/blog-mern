@@ -39,7 +39,7 @@ function Dashboard() {
         </div>
       </header>
       <main>
-        <div className='grid grid-cols-3 p-2 w-full gap-x-2 gap-y-4 '>
+        <div className='grid grid-cols-4 p-2 w-full gap-x-2 gap-y-4 '>
           {/* <h2>Your Blogs</h2>
           {blogs.map(blog => (
             <div key={blog._id}>

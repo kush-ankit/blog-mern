@@ -53,7 +53,6 @@ export const LoginCard = () => {
       if (response.data.status) {
         setUser(response.data.user.name, response.data.user.email, response.data.user._id, response.data.user.isAdmin);
         setLogin(true);
-        console.log(response.headers['set-cookie'])
         nav('/');
       } else throw new Error(response.data.message);
     } catch (err) {

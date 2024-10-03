@@ -1,13 +1,27 @@
 import { Link } from 'react-router-dom'
 import { useAppStateStore, useUserStore } from '../global/states';
+import { MdOutlineDashboard } from "react-icons/md";
+import { IoSettingsOutline } from "react-icons/io5";
+import { IoLogOutOutline } from "react-icons/io5";
+import { MdDarkMode } from "react-icons/md";
+import {
+  Popover,
+  Typography,
+  Avatar,
+  List,
+} from "@material-tailwind/react";
+
 
 function NavBar() {
   const login = useAppStateStore((state) => state.login);
 
 
   return (
-    <div className="container mx-auto flex items-center justify-between">
-      <h1 className="text-4xl font-bold text-gray-800">Blog App</h1>
+    <div className="container mx-auto flex items-center justify-between" >
+      <Link to='/' className='flex items-center' >
+        <img className='w-12 h-12' src="https://i.ibb.co/S0dWnZC/file.png" alt="Logo image" />
+        <h1 className="text-3xl font-bold text-gray-800">Blog App</h1>
+      </Link>
       <div className='flex flex-grow justify-around'>
         <input type="text" placeholder='Search' name='Search' className='border w-1/2 border-black rounded-md outline-none py-2 px-3 justify-center' id="" />
       </div>
@@ -25,17 +39,71 @@ function NavBar() {
 
 export default NavBar;
 
-import { FaRegUser } from "react-icons/fa";
 
 
 
 function UserLoginIcon() {
   const name = useUserStore((state) => state.name);
   const email = useUserStore((state) => state.email);
+  const setLogin = useAppStateStore((state) => state.setLogin);
+  const setUser = useUserStore((state) => state.setUser);
+
+  function logout() {
+    setUser(null, null, null, null);
+    setLogin(false);
+    document.cookie = 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  }
+
   return (
-    <div>
-      <span>{name}</span>
-      <span><FaRegUser /></span>
-    </div>
+    <Popover>
+      <Popover.Trigger><List.Item>
+        <List.ItemStart>
+          <Avatar src="https://dub.sh/TdSBP0D" alt="profile-picture" />
+        </List.ItemStart>
+        <div>
+          <Typography color="default" className="font-semibold" >
+            {name && name}
+          </Typography>
+          <Typography type="small" className="text-foreground">
+            {name && email}
+          </Typography>
+        </div>
+      </List.Item></Popover.Trigger>
+      <Popover.Content className="max-w-sm p-1 border shadow-2xl">
+        <List>
+          <Link to='/dashboard'>
+            <List.Item>
+              <List.ItemStart>
+                <MdOutlineDashboard />
+              </List.ItemStart>
+              Dashboard
+            </List.Item>
+          </Link>
+          <Link to='/theme'>
+            <List.Item>
+              <List.ItemStart>
+                <MdDarkMode />
+              </List.ItemStart>
+              Theme
+            </List.Item>
+          </Link>
+          <Link to='/setting'>
+            <List.Item>
+              <List.ItemStart>
+                <IoSettingsOutline />
+              </List.ItemStart>
+              Settings
+            </List.Item>
+          </Link>
+          <List.Item onClick={logout}>
+            <List.ItemStart>
+              <IoLogOutOutline />
+            </List.ItemStart>
+            Logout
+          </List.Item>
+        </List>
+        <Popover.Arrow />
+      </Popover.Content>
+    </Popover>
   )
 }

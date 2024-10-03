@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import axios from "axios";
 import { useAppStateStore, useUserStore } from "./global/states";
 import { serverURI } from "./config/config";
+import Loader from "./components/Loader";
 
 
 
@@ -29,13 +30,13 @@ function App() {
       } else throw new Error(response.data.message);
     };
     fetchUserWithCookie();
-    
+
   })
 
   if (ready) {
     return (
-      <div className="App">
-        <header className="bg-white shadow-md w-full p-6">
+      <div className="bg-transparent">
+        <header className="bg-white shadow-lg w-full p-3">
           <NavBar />
         </header>
         <Routes>
@@ -48,20 +49,7 @@ function App() {
         <Footer />
       </div>
     );
-  } else {
-    return <div className="h-[100vh]">
-      <div className="flex-col gap-4 w-full h-full flex items-center justify-center">
-        <div
-          className="w-20 h-20 border-4 border-transparent text-blue-400 text-4xl animate-spin flex items-center justify-center border-t-blue-400 rounded-full"
-        >
-          <div
-            className="w-16 h-16 border-4 border-transparent text-red-400 text-2xl animate-spin flex items-center justify-center border-t-red-400 rounded-full"
-          ></div>
-        </div>
-        <div className="text-red-400 text-xl animate-pulse">Loading....</div>
-      </div>
-    </div>
-  }
+  } else <Loader />
 }
 
 export default App;
