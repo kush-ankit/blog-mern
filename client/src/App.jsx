@@ -22,11 +22,11 @@ function App() {
 
   useEffect(() => {
     setReady(true);
-    setLogin(true);
     const fetchUserWithCookie = async () => {
       let response = await axios.get(`${serverURI}/api/auth/valid`, { headers: { 'Content-Type': 'application/json' }, withCredentials: true })
       if (response.data.status) {
         setUser(response.data.user.name, response.data.user.email, response.data.user._id, response.data.user.isAdmin);
+        setLogin(true);
       } else throw new Error(response.data.message);
     };
     fetchUserWithCookie();
@@ -49,7 +49,7 @@ function App() {
         <Footer />
       </div>
     );
-  } else  <Loader />
+  } else <Loader />
 }
 
 export default App;

@@ -6,7 +6,6 @@ import { IoLogOutOutline } from "react-icons/io5";
 import { MdDarkMode } from "react-icons/md";
 import {
   Popover,
-  Button,
   Typography,
   Avatar,
   List,
@@ -46,6 +45,14 @@ export default NavBar;
 function UserLoginIcon() {
   const name = useUserStore((state) => state.name);
   const email = useUserStore((state) => state.email);
+  const setLogin = useAppStateStore((state) => state.setLogin);
+  const setUser = useUserStore((state) => state.setUser);
+
+  function logout() {
+    setUser(null, null, null, null);
+    setLogin(false);
+    document.cookie = 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  }
 
   return (
     <Popover>
@@ -69,7 +76,6 @@ function UserLoginIcon() {
               <List.ItemStart>
                 <MdOutlineDashboard />
               </List.ItemStart>
-
               Dashboard
             </List.Item>
           </Link>
@@ -89,14 +95,12 @@ function UserLoginIcon() {
               Settings
             </List.Item>
           </Link>
-          <Link to='/logout'>
-            <List.Item>
-              <List.ItemStart>
-                <IoLogOutOutline />
-              </List.ItemStart>
-              Logout
-            </List.Item>
-          </Link>
+          <List.Item onClick={logout}>
+            <List.ItemStart>
+              <IoLogOutOutline />
+            </List.ItemStart>
+            Logout
+          </List.Item>
         </List>
         <Popover.Arrow />
       </Popover.Content>
