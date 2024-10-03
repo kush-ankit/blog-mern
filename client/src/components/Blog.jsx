@@ -5,7 +5,7 @@ import { RiShareForwardLine } from "react-icons/ri";
 
 function BlogCard({ likes, title, content }) {
     return (
-        <div className="bg-white mx-auto rounded-lg border border-black p-8 flex flex-col gap-4">
+        <div className="bg-white  rounded-lg border border-black p-8 flex flex-col gap-4">
             <header className="flex justify-between items-center">
                 <p>Ankit Kushwaha</p>
             </header>
@@ -16,7 +16,7 @@ function BlogCard({ likes, title, content }) {
                 <h2 className="text-2xl font-bold text-left">
                     {title}
                 </h2>
-                <p className="list-none flex gap-6">
+                <p className="list-none flex gap-6 w-full">
                     <li>#tech</li>
                     <li>#Gadgets</li>
                     <li>#news</li>
