@@ -9,7 +9,10 @@ const { MONGO_IP, MONGO_PASSWORD, MONGO_PORT, MONGO_USER } = require('./config/c
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true,
+}));
 // const mongoURI = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/blog`;
 
 const mongoURI = "mongodb+srv://erankitkush:V1SpHDmsc3zsdxC0@cluster0.xkelt.mongodb.net/app"

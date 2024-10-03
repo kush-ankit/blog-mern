@@ -33,15 +33,16 @@ module.exports.register = async (req, res) => {
 module.exports.validate = (req, res, next) => {
     try {
         const token = req.cookies.token;
+        console.log(token)
         if (!token) {
-            return res.status(403).json({ status: false });
+            return res.status(401).json({ status: false, message: 'token not found' });
         }
         jwt.verify(token, process.env.JWT_SECRET, async (err, user) => {
-            if (err) return res.status(403).json({ status: false });
+            if (err) return res.status(401).json({ status: false });
             else {
                 const userd = await User.findById(user.id).exec()
                 if (userd) return res.status(201).json({ status: true, user: userd });
-                else return res.status(403).json({ status: false });
+                else return res.status(401).json({ status: false });
             }
         });
     } catch (e) {
