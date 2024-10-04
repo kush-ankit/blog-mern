@@ -1,5 +1,5 @@
 import { FaBirthdayCake, FaFacebook, FaGithub, FaInstagram } from 'react-icons/fa';
-import BlogCard from '../components/Blog';
+import DashboardBlogCard from '../components/DashboardBlogCard';
 import { useUserStore } from '../global/states';
 import { Avatar } from '@material-tailwind/react';
 import { FaXTwitter } from "react-icons/fa6";
@@ -31,7 +31,7 @@ function Dashboard() {
         </div>
         <div className='bg-white w-[60%] h-auto mx-auto -mt-8 text-center z-10 p-4 pt-12 rounded-md shadow-xl flex flex-col gap-2'>
           <p className='font-bold text-3xl'>{username && username}</p>
-          <p>@username</p>
+          <p>{username}</p>
           <p className='font-bold'>bio- i am feeling good. </p>
           <p className='flex justify-center gap-2 items-center'><FaBirthdayCake /> date of joining - dd/mm/yyyy</p>
           <div className='flex justify-evenly font-medium text-2xl py-2'>
@@ -40,10 +40,10 @@ function Dashboard() {
         </div>
       </header>
       <main className='p-8'>
-        <div className='p-8 bg-white shadow-xl rounded-lg'>
-          <div className='grid grid-cols-3 p-4 w-full gap-6 '>
+        <div className='p-8 bg-white shadow-xl flex justify-center items-center rounded-lg'>
+          <div className='grid grid-cols-2 p-4 w-10/12 gap-6 '>
             {blogs.map((blog) => {
-              return <BlogCard key={blog._id} likes={blog.likes} title={blog.title} content={blog.content} />
+              return <DashboardBlogCard key={blog._id} likes={blog.likes}  title={blog.title} content={blog.content} createdAt={blog.createdAt} AuthorName={blog.authorName} />
             })}
           </div>
         </div>
