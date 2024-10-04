@@ -19,9 +19,9 @@ module.exports.login = async (req, res) => {
 
 module.exports.register = async (req, res) => {
     try {
-        const { email, password, name } = await req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({ email, password: hashedPassword, name });
+        const userDetails = await req.body;
+        const hashedPassword = await bcrypt.hash(userDetails.password, 10);
+        const newUser = new User({ email: userDetails.email, password: hashedPassword, userName : userDetails.userName, name: userDetails?.name, bio : userDetails?.bio  });
         await newUser.save();
         res.status(201).json({ status: true, user: newUser });
     } catch (e) {
