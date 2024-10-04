@@ -13,7 +13,7 @@ module.exports.createPost = async (req, res) => {
     try {
         const { title, content } = req.body;
         if (title && content) {
-            const newBlog = new Blog({ title, content, author: req.userid });
+            const newBlog = new Blog({ title, content, authorid: req.userid, authorName: req.userName });
             await newBlog.save();
             return res.status(201).json({ status: true, blog: newBlog });
         } else {
@@ -29,9 +29,9 @@ module.exports.deletePost = async (req, res) => {
     try {
         let id = req.params.id;
         let uid = req.userid;
-        let { author } = await Blog.findById(id);
-        console.log(typeof uid, typeof author, { "author": author, "uid": uid });
-        if (uid == author) {
+        let { authorid } = await Blog.findById(id);
+        console.log(typeof uid, typeof author, { "author": authorid, "uid": uid });
+        if (uid == authorid) {
             await Blog.findByIdAndDelete(id);
             return res.status(200).json({ status: true, message: 'Post deleted successfully' });
         } else {

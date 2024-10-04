@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useAppStateStore, useUserStore } from '../global/states';
 import { MdOutlineDashboard } from "react-icons/md";
-import { IoSettingsOutline } from "react-icons/io5";
 import { IoLogOutOutline } from "react-icons/io5";
 import { MdDarkMode } from "react-icons/md";
 import {
@@ -10,6 +9,7 @@ import {
   Avatar,
   List,
 } from "@material-tailwind/react";
+import { FaRegEdit } from 'react-icons/fa';
 
 
 function NavBar() {
@@ -79,20 +79,20 @@ function UserLoginIcon() {
               Dashboard
             </List.Item>
           </Link>
+          <Link to='/createpost'>
+            <List.Item>
+              <List.ItemStart>
+              <FaRegEdit />
+              </List.ItemStart>
+              Create Blog
+            </List.Item>
+          </Link>
           <Link to='/theme'>
             <List.Item>
               <List.ItemStart>
                 <MdDarkMode />
               </List.ItemStart>
               Theme
-            </List.Item>
-          </Link>
-          <Link to='/setting'>
-            <List.Item>
-              <List.ItemStart>
-                <IoSettingsOutline />
-              </List.ItemStart>
-              Settings
             </List.Item>
           </Link>
           <List.Item onClick={logout}>

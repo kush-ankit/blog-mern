@@ -12,6 +12,7 @@ module.exports.validator = (req, res, next) => {
             if (err) return res.status(403).json({ status: false, message: err.message });
             else {
                 req.userid = user.id;
+                req.userName = user.userName;
                 next();
             }
         });
