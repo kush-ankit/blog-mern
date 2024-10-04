@@ -34,7 +34,7 @@ function Dashboard() {
         </div>
       </div>
         <div className='bg-slate-200 w-[40%] h-auto translate-x-[76%] -mt-4 text-center z-10 p-2 rounded-md '>
-        <p className='mt-4 py-2 font-bold text-2xl'>{username}</p>
+        <p className='mt-4 py-2 font-bold text-2xl'>{username && username}</p>
         <p className='p-2 font-bold'>bio- i am feeling good. </p>
         <p>date of joining - dd/mm/yyyy</p>
         <div className='flex justify-evenly p-2 font-medium mt-1 '>
