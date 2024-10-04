@@ -33,7 +33,7 @@ function Home() {
         </section>
         <section className="w-[50%] px-6 flex flex-col gap-6">
           {blogs.map((blog) => {
-            return <HomeBlogCard key={blog._id} likes={blog.likes} title={blog.title} content={blog.content} />
+            return <HomeBlogCard key={blog._id} likes={blog.likes} title={blog.title} content={blog.content} AuthorName={blog.authorName} />
           })}
         </section>
         <section className="w-[25%]">

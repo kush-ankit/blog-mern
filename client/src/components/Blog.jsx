@@ -3,11 +3,11 @@ import { FaRegComment } from "react-icons/fa";
 import { RiShareForwardLine } from "react-icons/ri";
 
 
-function HomeBlogCard({ likes, title, content }) {
+function HomeBlogCard({ likes, title, content, AuthorName }) {
     return (
         <div className="bg-white  rounded-lg border border-black p-8 flex flex-col gap-4">
             <header className="flex justify-between items-center">
-                <p>Ankit Kushwaha</p>
+                <p>{AuthorName}</p>
             </header>
 
             <main className="flex flex-col gap-4">

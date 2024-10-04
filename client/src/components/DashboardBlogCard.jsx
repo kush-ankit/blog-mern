@@ -1,11 +1,17 @@
 import LimitedDisplay from "./LimitedDisplay";
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
 function DashboardBlogCard({likes, comment, title, content, createdAt, AuthorName}) {
 
     return (
-        <div className="bg-white rounded-lg border border-black p-6 flex flex-col justify-between gap-2 shadow-xl">
+        <div className="bg-white rounded-lg border border-black p-4 flex flex-col justify-between gap-2 shadow-xl">
             <header className="flex justify-between items-center">
                 <p>{AuthorName}</p>
+                <span className="flex gap-2">
+                <p className="p-2 cursor-pointer" onClick={()=>prompt("hello")}><FaEdit /></p> {/*features to be added */}
+                <p className="p-2 cursor-pointer" onClick={()=>prompt("hello")}><MdDelete /></p>
+                </span>
             </header>
 
             <main className="flex flex-col gap-2">
