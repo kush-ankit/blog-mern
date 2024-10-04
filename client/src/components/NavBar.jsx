@@ -40,7 +40,7 @@ function NavBar() {
 export default NavBar;
 
 
-
+const profie_picture = <Avatar src="https://dub.sh/TdSBP0D" alt="profile-picture" />; // declaring profile_picture for later use
 
 function UserLoginIcon() {
   const name = useUserStore((state) => state.name);
@@ -58,7 +58,7 @@ function UserLoginIcon() {
     <Popover>
       <Popover.Trigger><List.Item>
         <List.ItemStart>
-          <Avatar src="https://dub.sh/TdSBP0D" alt="profile-picture" />
+          {profie_picture}   {/*profile picture import*/}
         </List.ItemStart>
         <div>
           <Typography color="default" className="font-semibold" >

@@ -2,6 +2,7 @@
 function CreatePost() {
     return (
         <div className="h-[80vh]">
+            
             <main className='bg-blue-200 flex justify-around p-3 h-full'>
                 <div className='grid justify-center items-center w-1/2 bg-white p-1 rounded-md'>
                     <div>
