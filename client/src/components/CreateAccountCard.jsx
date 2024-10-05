@@ -11,25 +11,26 @@ function CreateAccountCard() {
 
     const nav = useNavigate();
 
-
-    const [name, setName] = useState();
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const [userName, setUserName] = useState("");
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [bio, setBio] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${serverURI}/api/auth/register`, { name, email, password }, { Headers: { 'content-type': 'application/json' } });
+            const response = await axios.post(`${serverURI}/api/auth/register`, { userName, bio, name, email, password }, { Headers: { 'content-type': 'application/json' } });
             if (response.status) {
                 try {
                     const response = await axios.post(`${serverURI}/api/auth/login`, { email, password }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
                     if (response.data.status) {
-                        setUser(response.data.user.name, response.data.user.email, response.data.user._id, response.data.user.isAdmin);
+                        setUser(response.data.user.userName, response.data.user.email, response.data.user._id, response.data.user.createdAt, response.data.user.bio, response.data.user.name, response.data.user.isAdmin);
                         setLogin(true);
                         nav('/');
                     } else throw new Error(response.data.message);
                 } catch (err) {
-                   console.error(err)
+                    console.error(err)
                 }
             }
         } catch (error) {
@@ -52,7 +53,7 @@ function CreateAccountCard() {
                 <div className="rounded-md shadow-sm space-y-4">
                     <div>
                         <label htmlFor="name" className="sr-only">
-                            Email address
+                            Fullname
                         </label>
                         <input
                             id="name"
@@ -79,6 +80,18 @@ function CreateAccountCard() {
                         />
                     </div>
                     <div>
+                        <label htmlFor="username" className="sr-only">Username</label>
+                        <input
+                            id="username"
+                            name="username"
+                            type="text"
+                            required
+                            className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            placeholder="Username"
+                            onChange={(e) => setUserName(e.target.value)}
+                        />
+                    </div>
+                    <div>
                         <label htmlFor="password" className="sr-only">
                             Password
                         </label>
@@ -90,6 +103,19 @@ function CreateAccountCard() {
                             className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             placeholder="Password"
                             onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="bio" className="sr-only">
+                            Bio
+                        </label>
+                        <textarea
+                            id="bio"
+                            name="bio"
+                            required
+                            className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            placeholder="Bio"
+                            onChange={(e) => setBio(e.target.value)}
                         />
                     </div>
                 </div>

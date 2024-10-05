@@ -5,8 +5,11 @@ import axios from "axios";
 import { serverURI } from "../config/config";
 import HomeBlogCard from "../components/Blog";
 import Loader from "../components/Loader";
+import { useAppStateStore } from "../global/states";
 
 function Home() {
+
+  const login = useAppStateStore((state) => state.login)
 
   const [loading, setLoading] = useState(true)
   const [blogs, setBlogs] = useState([]);
@@ -26,7 +29,7 @@ function Home() {
       }
     };
     fetchData();
-  }, []);
+  }, [login]);
 
 
   return (

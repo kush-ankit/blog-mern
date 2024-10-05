@@ -3,23 +3,38 @@ import { BiLike, BiSolidLike } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import { RiShareForwardLine } from "react-icons/ri";
 import LimitedDisplay from "./LimitedDisplay";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { serverURI } from "../config/config";
 import axios from "axios";
+import { useUserStore } from "../global/states";
 
 
-function HomeBlogCard({ id, authorid, authorName, key, createdAt, likes, title, content }) {
+function HomeBlogCard({ id, authorid, authorName, createdAt, likes, title, content }) {
 
+    const userid = useUserStore((state) => state.id)
+    const [likeCount, setLikeCount] = useState(likes)
     const [isLiked, setIsLiked] = useState(false)
+
+    console.log(likes)
+    useEffect(() => {
+        if (likes.includes(userid)) {
+            console.log(isLiked)
+            setIsLiked(true);
+        }
+    }, [])
+
 
     async function handleLikeButton() {
         try {
             let response = await axios.get(`${serverURI}/api/blog/likePost/${id}`, { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
             console.log(response);
             if (response.data.status) {
+                console.log(isLiked);
                 setIsLiked(true);
-                likes++;
-            } else throw new Error(response.data.message);
+                setLikeCount(response.data.post.likes);
+            } else {
+                console.log(response.data.message);
+            }
         } catch (error) {
             console.error(error)
         }
@@ -50,7 +65,7 @@ function HomeBlogCard({ id, authorid, authorName, key, createdAt, likes, title, 
             </main>
             <hr />
             <footer className="flex justify-between">
-                <span className="flex justify-center items-center"><button onClick={handleLikeButton} className="flex">{isLiked ? <BiSolidLike size={20} className="text-red-500" /> : <BiLike size={20} />} </button> <p className=" pl-2 pr-1">{likes.length}</p><p>likes</p> </span>
+                <span className="flex justify-center items-center"><button onClick={handleLikeButton} className="flex">{isLiked ? <BiSolidLike size={20} className="text-red-500" /> : <BiLike size={20} />} </button> <p className=" pl-2 pr-1">{likeCount.length}</p><p>likes</p> </span>
                 <span className="flex justify-center items-center"><button className="flex pr-2"><FaRegComment size={20} /> </button><p>comment</p> </span>
                 <span className="flex justify-center items-center"><button className="flex pr-2"><RiShareForwardLine size={20} /> </button><p>share</p> </span>
             </footer>
