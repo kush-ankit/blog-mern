@@ -1,31 +1,39 @@
 import { FaBirthdayCake, FaFacebook, FaGithub, FaInstagram } from 'react-icons/fa';
 import DashboardBlogCard from '../components/DashboardBlogCard';
-import { useUserStore } from '../global/states';
+import { useAppStateStore, useUserStore } from '../global/states';
 import { Avatar } from '@material-tailwind/react';
 import { FaXTwitter } from "react-icons/fa6";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { serverURI } from '../config/config';
+import { useNavigate } from 'react-router-dom';
 
 
 function Dashboard() {
+  const nav = useNavigate();
   const name = useUserStore((state) => state.name);
   const email = useUserStore((state) => state.email);
   const userName = useUserStore((state) => state.userName);
   const bio = useUserStore((state) => state.bio);
   const createdAt = useUserStore((state) => state.createdAt);
-
+  const login = useAppStateStore((state) => state.login);
 
   const [blogs, setBlogs] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
-      let response = await axios.get('http://localhost:4000/api/blog/all', { Headers: { 'Content-Type': 'application/json' } });
+      let response = await axios.get(`${serverURI}/api/blog/userAllBlogs`, { Headers: { 'Content-Type': 'application/json' }, withCredentials: true });
       if (response.data.status) {
-        setBlogs(response.data.posts)
+        setBlogs(response.data.blogs)
       } else throw new Error(response.data.message);
     }
-    fetchData();
-  }, []);
+    if (login) {
+      fetchData();
+    } else {
+      setBlogs([]);
+      nav('/')
+    }
+  }, [login]);
 
   return (
     <div className=''>
@@ -39,7 +47,7 @@ function Dashboard() {
           <p className='font-bold text-3xl'>{name && name}</p>
           <p className='flex gap-4 justify-center'><span>{email && email}</span> • <span>{userName && userName}</span></p>
           <p className='font-bold'>{bio && bio}</p>
-          <p className='flex justify-center gap-2 items-center'><FaBirthdayCake /><span>Joined on </span><span>{createdAt && createdAt.slice(0,10)}</span></p>
+          <p className='flex justify-center gap-2 items-center'><FaBirthdayCake /><span>Joined on </span><span>{createdAt && createdAt.slice(0, 10)}</span></p>
           <div className='flex justify-evenly font-medium text-2xl py-2'>
             <span><FaXTwitter /></span> <span><FaFacebook /></span> <span><FaInstagram /></span><span><FaGithub /></span>
           </div>
@@ -49,7 +57,7 @@ function Dashboard() {
         <div className='p-8 bg-white shadow-xl flex justify-center items-center rounded-lg'>
           <div className='grid grid-cols-2 p-4 w-10/12 gap-6 '>
             {blogs.map((blog) => {
-              return <DashboardBlogCard key={blog._id} likes={blog.likes}  title={blog.title} content={blog.content} createdAt={blog.createdAt} AuthorName={blog.authorName} />
+              return <DashboardBlogCard key={blog._id} likes={blog.likes} title={blog.title} content={blog.content} createdAt={blog.createdAt} authorName={blog.authorName} authorid={blog.authorid} id={blog._id} />
             })}
           </div>
         </div>

@@ -30,13 +30,12 @@ function App() {
       } else throw new Error(response.data.message);
     };
     fetchUserWithCookie();
-
   })
 
   if (ready) {
     return (
       <div className="bg-transparent mt-20">
-        <header className="bg-white shadow-lg w-full p-1 fixed top-0">
+        <header className="bg-white shadow-lg w-full p-2 fixed top-0 z-30">
           <NavBar />
         </header>
         <Routes>

@@ -15,25 +15,33 @@ function HomeBlogCard({ id, authorid, authorName, createdAt, likes, title, conte
     const [likeCount, setLikeCount] = useState(likes)
     const [isLiked, setIsLiked] = useState(false)
 
-    console.log(likes)
     useEffect(() => {
         if (likes.includes(userid)) {
-            console.log(isLiked)
             setIsLiked(true);
+        } else {
+            setIsLiked(false);
         }
-    }, [])
+    }, [userid])
 
 
     async function handleLikeButton() {
         try {
-            let response = await axios.get(`${serverURI}/api/blog/likePost/${id}`, { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
-            console.log(response);
-            if (response.data.status) {
-                console.log(isLiked);
-                setIsLiked(true);
-                setLikeCount(response.data.post.likes);
-            } else {
-                console.log(response.data.message);
+            if (!isLiked) {
+                let response = await axios.get(`${serverURI}/api/blog/likePost/${id}`, { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
+                if (response.data.status) {
+                    setIsLiked(true);
+                    setLikeCount(response.data.post.likes);
+                } else {
+                    console.log(response.data.message);
+                }
+            }else{
+                let response = await axios.get(`${serverURI}/api/blog/unlikeBlog/${id}`, { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
+                if (response.data.status) {
+                    setIsLiked(false);
+                    setLikeCount(response.data.blog.likes);
+                } else {
+                    console.log(response.data.message);
+                }
             }
         } catch (error) {
             console.error(error)
