@@ -4,9 +4,11 @@ import Right_Box from "../components/Right_Box";
 import axios from "axios";
 import { serverURI } from "../config/config";
 import HomeBlogCard from "../components/Blog";
+import Loader from "../components/Loader";
 
 function Home() {
 
+  const [loading, setLoading] = useState(true)
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
@@ -15,7 +17,9 @@ function Home() {
         const response = await axios.get(`${serverURI}/api/blog/all`)
         const { status, posts } = await response.data;
         if (status) {
-          setBlogs(posts)
+          setBlogs(posts);
+          console.log(posts)
+          setLoading(false);
         }
       } catch (error) {
         console.error(error);
@@ -32,8 +36,8 @@ function Home() {
           <Left_Box />
         </section>
         <section className="w-[50%] px-6 flex flex-col gap-6">
-          {blogs.map((blog) => {
-            return <HomeBlogCard key={blog._id} likes={blog.likes} title={blog.title} content={blog.content} />
+          {loading ? <Loader /> : blogs.map((blog) => {
+            return <HomeBlogCard id={blog._id} key={blog._id} authorid={blog.authorid} authorName={blog.authorName} createdAt={blog.createdAt} likes={blog.likes} title={blog.title} content={blog.content} />
           })}
         </section>
         <section className="w-[25%]">

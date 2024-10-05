@@ -41,3 +41,20 @@ module.exports.deletePost = async (req, res) => {
         return res.status(401).json({ status: true, message: "Error deleting post" });
     }
 }
+
+module.exports.likePost = async (req, res ) => {
+    try {
+        let id = req.params.id;
+        let uid = req.userid;
+        let post = await Blog.findById(id);
+        if (!post.likes.includes(uid)) {
+            post.likes.push(uid);
+            await post.save();
+            return res.status(200).json({ status: true, message: 'Post liked successfully', post: post });
+        } else {
+            return res.status(400).json({ status: false, message: 'You have already liked this post' });
+        }
+    } catch (error) {
+        return res.status(401).json({ status: true, message: "Error liking post" });
+    }
+}

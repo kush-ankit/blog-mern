@@ -17,7 +17,7 @@ function NavBar() {
 
 
   return (
-    <div className="container mx-auto flex items-center justify-between" >
+    <div className="container mx-auto flex items-center justify-between " >
       <Link to='/' className='flex items-center' >
         <img className='w-12 h-12' src="https://i.ibb.co/S0dWnZC/file.png" alt="Logo image" />
         <h1 className="text-3xl font-bold text-gray-800">Blog App</h1>

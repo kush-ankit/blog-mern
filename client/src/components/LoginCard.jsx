@@ -48,10 +48,10 @@ export const LoginCard = () => {
     }
 
     try {
-      const response = await axios.post(`${serverURI}/api/auth/login`, { email, password }, {headers: {'Content-Type' : 'application/json'}, withCredentials: true });
+      const response = await axios.post(`${serverURI}/api/auth/login`, { email, password }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
       console.log(response.data);
       if (response.data.status) {
-        setUser(response.data.user.name, response.data.user.email, response.data.user._id, response.data.user.isAdmin);
+        setUser(response.data.user.userName, response.data.user.email, response.data.user._id, response.data.user.createdAt, response.data.user.bio, response.data.user.name, response.data.user.isAdmin);
         setLogin(true);
         nav('/');
       } else throw new Error(response.data.message);
