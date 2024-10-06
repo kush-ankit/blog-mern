@@ -16,8 +16,6 @@ function Home() {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    console.log("i logged in");
-
     const fetchData = async () => {
       try {
         const response = await axios.get(`${serverURI}/api/blog/all`)
@@ -41,13 +39,8 @@ function Home() {
           {login ? <div>Logged in</div> : <Left_Box />}
         </section>
         <section className="w-[50%] px-6 flex flex-col gap-6">
-<<<<<<< HEAD
-          {blogs.map((blog) => {
-            return <HomeBlogCard key={blog._id} likes={blog.likes} title={blog.title} content={blog.content} AuthorName={blog.authorName} />
-=======
           {loading ? <Loader /> : blogs.map((blog) => {
             return <HomeBlogCard id={blog._id} key={blog._id} authorid={blog.authorid} authorName={blog.authorName} createdAt={blog.createdAt} likes={blog.likes} title={blog.title} content={blog.content} />
->>>>>>> main
           })}
         </section>
         <section className="w-[25%]">

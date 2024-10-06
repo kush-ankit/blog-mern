@@ -1,5 +1,5 @@
 const express = require('express');
-const { createPost, getAllPosts, deletePost, likePost, userAllBlogs, unlikeBlog } = require('../controllers/postController');
+const { createPost, getAllPosts, deletePost, likePost, userAllBlogs, unlikeBlog, getOneBlog, updateBlog } = require('../controllers/postController');
 const { validator } = require('../middleware/reqValidator');
 
 const router = express.Router();
@@ -9,6 +9,8 @@ router.post('/create', validator, createPost);
 router.delete('/delete/:id', validator, deletePost);
 router.get('/likePost/:id', validator, likePost);
 router.get('/userAllBlogs', validator, userAllBlogs);
-router.get('/unlikeBlog/:id', validator,unlikeBlog)
+router.get('/unlikeBlog/:id', validator, unlikeBlog);
+router.get('/getOneBlog/:id', validator, getOneBlog);
+router.patch('/updateBlog/:id', validator, updateBlog);
 
 module.exports = router;
