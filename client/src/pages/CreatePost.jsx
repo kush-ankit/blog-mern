@@ -1,22 +1,39 @@
 import axios from "axios";
 import { serverURI } from "../config/config";
 import { useEffect, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 
 function CreatePost() {
 
+    const nav = useNavigate();
     const [isDraft, setIsDraft] = useState(false);
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
+    const [queryParameters] = useSearchParams();
+    const [isEditing, setIsEditing] = useState(false);
 
 
     useEffect(() => {
-        const title = window.localStorage.getItem("title");
-        const content = window.localStorage.getItem("content");
-        if (title && content) {
-            setIsDraft(true);
-            setTitle(JSON.parse(title));
-            setContent(JSON.parse(content));
+        if (queryParameters.get('state') == 'edit') {
+            setIsEditing(true);
+            (async function () {
+                const response = await axios.get(`${serverURI}/api/blog/getOneBlog/${queryParameters.get('id')}`, { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
+                if (response.data.status) {
+                    setTitle(response.data.blog.title);
+                    setContent(response.data.blog.content);
+                } else {
+                    alert("Failed to load the blog.");
+                }
+            })();
+        } else {
+            const title = window.localStorage.getItem("title");
+            const content = window.localStorage.getItem("content");
+            if (title && content) {
+                setIsDraft(true);
+                setTitle(JSON.parse(title));
+                setContent(JSON.parse(content));
+            }
         }
     }, [])
 
@@ -45,10 +62,23 @@ function CreatePost() {
 
     }
 
-    async function handleSaveDraft() {
+    function handleEdit() {
+        axios.patch(`${serverURI}/api/blog/updateBlog/${queryParameters.get('id')}`, { title, content }, { withCredentials: true, headers: { 'Content-Type': 'application/json' } })
+            .then((response) => {
+                if (response.data.status) {
+                    alert("Blog updated successfully!");
+                    setIsEditing(false);
+                    nav('/dashboard')
+                } else {
+                    alert("Failed to update the blog.");
+                }
+            })
+    }
+
+    function handleSaveDraft() {
         try {
-            await window.localStorage.setItem("title", JSON.stringify(title));
-            await window.localStorage.setItem("content", JSON.stringify(content));
+            window.localStorage.setItem("title", JSON.stringify(title));
+            window.localStorage.setItem("content", JSON.stringify(content));
             setIsDraft(true);
             alert("Draft saved successfully!");
         } catch (e) {
@@ -77,7 +107,8 @@ function CreatePost() {
                         <textarea id="content" rows="10" value={content} className="block p-2.5 w-full text-base text-gray-900 bg-gray-50 rounded-lg border border-gray-500 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none" placeholder="Write your content here..." onChange={(e) => setContent(e.target.value)}></textarea>
                     </div>
                     <div className="flex gap-4">
-                        <button type="button" onClick={handlePublish} className="text-white bg-blue-500 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-500 dark:hover:bg-blue-500 focus:outline-none dark:focus:ring-blue-500">Publish</button>
+                        {isEditing ? <button type="button" onClick={handleEdit} className="text-white bg-blue-500 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-500 dark:hover:bg-blue-500 focus:outline-none dark:focus:ring-blue-500">Save Changes</button> :
+                            <button type="button" onClick={handlePublish} className="text-white bg-blue-500 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-500 dark:hover:bg-blue-500 focus:outline-none dark:focus:ring-blue-500">Publish</button>}
                         <button type="button" onClick={handleSaveDraft} className="text-green-500 hover:text-white border border-green-700 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800">{isDraft ? "Drafted data" : "Save Draft"}</button>
                         <button type="button" onClick={handleReset} className="text-red-500 hover:text-white border border-red-500 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">Reset</button>
                     </div>

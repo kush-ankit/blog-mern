@@ -2,7 +2,6 @@ import { Avatar } from "@material-tailwind/react";
 import { BiLike, BiSolidLike } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import { RiShareForwardLine } from "react-icons/ri";
-import LimitedDisplay from "./LimitedDisplay";
 import { useEffect, useState } from "react";
 import { serverURI } from "../config/config";
 import axios from "axios";
@@ -11,10 +10,10 @@ import { useAppStateStore, useUserStore } from "../global/states";
 
 function HomeBlogCard({ id, authorid, authorName, createdAt, likes, title, content }) {
 
-    const login = useAppStateStore((state) => state.login)
-    const userid = useUserStore((state) => state.id)
-    const [likeCount, setLikeCount] = useState(likes)
-    const [isLiked, setIsLiked] = useState(false)
+    const login = useAppStateStore((state) => state.login);
+    const userid = useUserStore((state) => state.id);
+    const [likeCount, setLikeCount] = useState(likes);
+    const [isLiked, setIsLiked] = useState(false);
 
     useEffect(() => {
         if (likes.includes(userid)) {
@@ -55,7 +54,7 @@ function HomeBlogCard({ id, authorid, authorName, createdAt, likes, title, conte
 
 
     return (
-        <div className="bg-white  rounded-lg border border-black p-6 flex flex-col gap-3 shadow-md">
+        <div className="bg-white rounded-lg border border-black p-6 flex flex-col gap-3 shadow-md">
             <header className="flex items-center gap-2 text-xs">
                 <Avatar src="https://dub.sh/TdSBP0D" alt="profile-picture" className="w-8 h-8" />
                 <p className="flex flex-col items-start"><span className="text-sm">{authorName}</span><span className="">{createdAt.slice(0, 10)}</span></p>
@@ -70,10 +69,6 @@ function HomeBlogCard({ id, authorid, authorName, createdAt, likes, title, conte
                     <li>#news</li>
                     <li>#students</li>
                     <li>#react</li>
-                </p>
-                <p className="text-left ">
-                    <LimitedDisplay text={content} />
-                    <a href="##" className="hover:text-blue-700 font-semibold"> Read more...</a>
                 </p>
             </main>
             <hr />

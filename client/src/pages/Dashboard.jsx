@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
   const nav = useNavigate();
+
   const name = useUserStore((state) => state.name);
   const email = useUserStore((state) => state.email);
   const userName = useUserStore((state) => state.userName);
@@ -19,6 +20,7 @@ function Dashboard() {
   const login = useAppStateStore((state) => state.login);
 
   const [blogs, setBlogs] = useState([])
+  const [refreshBlogData, setRefreshBlogData] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,7 +35,11 @@ function Dashboard() {
       setBlogs([]);
       nav('/')
     }
-  }, [login]);
+  }, [login, refreshBlogData]);
+
+  function refreshHandler() {
+    setRefreshBlogData(!refreshBlogData);
+  }
 
   return (
     <div className=''>
@@ -57,7 +63,7 @@ function Dashboard() {
         <div className='p-8 bg-white shadow-xl flex justify-center items-center rounded-lg'>
           <div className='grid grid-cols-2 p-4 w-10/12 gap-6 '>
             {blogs.map((blog) => {
-              return <DashboardBlogCard key={blog._id} likes={blog.likes} title={blog.title} content={blog.content} createdAt={blog.createdAt} authorName={blog.authorName} authorid={blog.authorid} id={blog._id} />
+              return <DashboardBlogCard refreshHandler={refreshHandler} key={blog._id} likes={blog.likes} title={blog.title} content={blog.content} createdAt={blog.createdAt} authorName={blog.authorName} authorid={blog.authorid} id={blog._id} />
             })}
           </div>
         </div>

@@ -7,7 +7,7 @@ module.exports.getAllPosts = async (req, res, next) => {
     } catch (e) {
         return res.status(500).json({ status: false, message: e.message });
     }
-}
+};
 
 module.exports.createPost = async (req, res) => {
     try {
@@ -22,7 +22,7 @@ module.exports.createPost = async (req, res) => {
     } catch (e) {
         return res.status(401).json({ status: false, message: e.message });
     }
-}
+};
 
 
 module.exports.deletePost = async (req, res) => {
@@ -40,7 +40,7 @@ module.exports.deletePost = async (req, res) => {
     } catch (error) {
         return res.status(401).json({ status: true, message: "Error deleting post" });
     }
-}
+};
 
 module.exports.likePost = async (req, res) => {
     try {
@@ -57,7 +57,7 @@ module.exports.likePost = async (req, res) => {
     } catch (error) {
         return res.status(401).json({ status: true, message: "Error liking post" });
     }
-}
+};
 
 module.exports.unlikeBlog = async (req, res) => {
     try {
@@ -75,7 +75,7 @@ module.exports.unlikeBlog = async (req, res) => {
     } catch (error) {
         return res.status(401).json({ status: true, message: "Error liking post" });
     }
-}
+};
 
 
 module.exports.userAllBlogs = async (req, res) => {
@@ -89,5 +89,35 @@ module.exports.userAllBlogs = async (req, res) => {
         }
     } catch (error) {
         return res.status(401).json({ status: false, message: "Error fetching user's blogs" });
+    }
+};
+
+module.exports.getOneBlog = async (req, res) =>{
+    try {
+        let id = req.params.id;
+        let blog = await Blog.findById(id);
+        if (!blog) {
+            return res.status(400).json({ status: false, message: 'Blog not found' });
+        } else {
+            return res.status(200).json({ status: true, blog: blog });
+        }
+    } catch (error) {
+        return res.status(500).json({ status: false, message: error.message });
+    }
+};
+
+
+module.exports.updateBlog = async (req, res) => {
+    try {
+        let blogid = req.params.id;
+        let { title, content } = req.body;
+        let blog = await Blog.findByIdAndUpdate(blogid, { title, content }, { new: true });
+        if (!blog) {
+            return res.status(400).json({ status: false, message: 'Blog not found' });
+        } else {
+            return res.status(200).json({ status: true, blog: blog });
+        }
+    } catch (error) {
+        return res.status(500).json({ status: false, message: error.message });
     }
 }

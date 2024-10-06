@@ -16,8 +16,6 @@ function Home() {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    console.log("i logged in");
-
     const fetchData = async () => {
       try {
         const response = await axios.get(`${serverURI}/api/blog/all`)

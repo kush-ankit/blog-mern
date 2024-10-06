@@ -1,20 +1,38 @@
+import { Avatar } from "@material-tailwind/react";
 import LimitedDisplay from "./LimitedDisplay";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { serverURI } from "../config/config";
 
 
-function DashboardBlogCard({ id, authorid, authorName, createdAt, likes, title, content }) {
+function DashboardBlogCard({ id, refreshHandler, authorid, authorName, createdAt, likes, title, content }) {
+
+    async function handleDeleteButton() {
+        await axios.delete(`${serverURI}/api/blog/delete/${id}`, { withCredentials: true })
+            .then((response) => {
+                if (response.data.status) {
+                    refreshHandler()
+                }
+            });
+    };
 
     return (
         <div className="bg-white rounded-lg border border-black p-4 flex flex-col justify-between gap-2 shadow-xl">
-            <header className="flex justify-between items-center">
-                <p>{authorName}</p>
-                <p className="flex p-2 gap-4"><FaEdit/> <MdDelete/></p>
+            <header className="flex items-center justify-between gap-2 text-xs">
+                <div className="flex gap-2">
+                    <Avatar src="https://dub.sh/TdSBP0D" alt="profile-picture" className="w-8 h-8" />
+                    <p className="flex flex-col items-start"><span className="text-sm">{authorName}</span><span className="">{createdAt.slice(0, 10)}</span></p>
+                </div>
+                <div className="flex gap-4">
+                    <Link to={`/createpost?state=edit&id=${id}`}><FaEdit className="cursor-pointer hover:text-blue-700" size={20} /></Link>
+                    <button onClick={handleDeleteButton}><MdDelete className="cursor-pointer hover:text-red-700" size={20} /></button>
+                </div>
             </header>
-
             <main className="flex flex-col gap-2">
                 <h2 className="text-2xl font-bold text-left">
-                    {title}
+                    <a href="##" className="hover:text-blue-800">{title}</a>
                 </h2>
                 <p className="list-none flex gap-6 w-full">
                     <li>#tech</li>
@@ -24,7 +42,7 @@ function DashboardBlogCard({ id, authorid, authorName, createdAt, likes, title, 
                     <li>#react</li>
                 </p>
                 <p className="text-left">
-                    <LimitedDisplay text={content} limit={100} /> <a href="##">Read more...</a>
+                    <LimitedDisplay text={content} limit={100} /> <a href="##" className="hover:text-blue-800"> Read more...</a>
                 </p>
             </main>
             <footer className="flex justify-between text-center items-end">
