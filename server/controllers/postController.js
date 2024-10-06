@@ -1,6 +1,7 @@
 const Blog = require("../models/Blog")
 
 module.exports.getAllPosts = async (req, res, next) => {
+    console.log("request recived")
     try {
         const posts = await Blog.find().sort({ createdAt: -1 });
         return res.status(200).json({ status: true, posts: posts });

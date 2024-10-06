@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-const PORT = process.env.PORT || 4000;
+const port = process.env.PORT || 4000;
 const cors = require('cors');
 require('dotenv').config();
 const { MONGO_IP, MONGO_PASSWORD, MONGO_PORT, MONGO_USER } = require('./config/config');
@@ -32,6 +32,6 @@ app.use("/api/blog", require("./routes/blogs"))
 app.use("/api/auth", require("./routes/auth"))
 app.use("/api/user", require("./routes/user"));
 
-app.listen(PORT, () => {
-  console.log('Server is running on port 4000');
+app.listen(port, () => {
+  console.log('Server is running on port', port);
 });
