@@ -17,7 +17,7 @@ function NavBar() {
 
 
   return (
-    <div className="container mx-auto flex items-center justify-between" >
+    <div className="container mx-auto flex items-center justify-between " >
       <Link to='/' className='flex items-center' >
         <img className='w-12 h-12' src="https://i.ibb.co/S0dWnZC/file.png" alt="Logo image" />
         <h1 className="text-3xl font-bold text-gray-800">Blog App</h1>
@@ -40,7 +40,7 @@ function NavBar() {
 export default NavBar;
 
 
-const profie_picture = <Avatar src="https://dub.sh/TdSBP0D" alt="profile-picture" />; // declaring profile_picture for later use
+const profie_picture = <Avatar src="https://dub.sh/TdSBP0D" alt="profile-picture" className='w-8 h-8' />; // declaring profile_picture for later use
 
 function UserLoginIcon() {
   const name = useUserStore((state) => state.name);
@@ -49,14 +49,14 @@ function UserLoginIcon() {
   const setUser = useUserStore((state) => state.setUser);
 
   function logout() {
-    setUser(null, null, null, null);
+    setUser(null, null, null, null, null, null, null);
     setLogin(false);
     document.cookie = 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
   }
 
   return (
     <Popover>
-      <Popover.Trigger><List.Item>
+      <Popover.Trigger className='text-sm'><List.Item>
         <List.ItemStart>
           {profie_picture}   {/*profile picture import*/}
         </List.ItemStart>

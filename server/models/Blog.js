@@ -7,7 +7,7 @@ const BlogSchema = new mongoose.Schema({
   authorName: { type: mongoose.Schema.Types.String, ref: 'User', required: true },
   status: { type: String, default: 'pending' }, // 'pending', 'approved', 'rejected'
   createdAt: { type: Date, default: Date.now },
-  likes: { type: Number, default: 0 },
+  likes: { type: Array },
 });
 
 module.exports = mongoose.model('Blog', BlogSchema);

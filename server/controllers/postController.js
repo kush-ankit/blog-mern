@@ -41,3 +41,53 @@ module.exports.deletePost = async (req, res) => {
         return res.status(401).json({ status: true, message: "Error deleting post" });
     }
 }
+
+module.exports.likePost = async (req, res) => {
+    try {
+        let id = req.params.id;
+        let uid = req.userid;
+        let post = await Blog.findById(id);
+        if (!post.likes.includes(uid)) {
+            post.likes.push(uid);
+            await post.save();
+            return res.status(200).json({ status: true, message: 'Post liked successfully', post: post });
+        } else {
+            return res.status(400).json({ status: false, message: 'You have already liked this post' });
+        }
+    } catch (error) {
+        return res.status(401).json({ status: true, message: "Error liking post" });
+    }
+}
+
+module.exports.unlikeBlog = async (req, res) => {
+    try {
+        let id = req.params.id;
+        let uid = req.userid;
+        let blog = await Blog.findById(id);
+        if (blog.likes.includes(uid)) {
+            let index = blog.likes.indexOf(uid);
+            blog.likes.splice(index, 1);
+            await blog.save();
+            return res.status(200).json({ status: true, message: 'Post liked successfully', blog: blog });
+        } else {
+            return res.status(400).json({ status: false, message: 'You have already liked this post' });
+        }
+    } catch (error) {
+        return res.status(401).json({ status: true, message: "Error liking post" });
+    }
+}
+
+
+module.exports.userAllBlogs = async (req, res) => {
+    try {
+        let userid = req.userid;
+        const blogs = await Blog.find({ authorid: userid }).exec();
+        if (!blogs) {
+            return res.status(400).json({ status: false, message: err });
+        } else {
+            return res.status(200).json({ status: true, blogs: blogs });
+        }
+    } catch (error) {
+        return res.status(401).json({ status: false, message: "Error fetching user's blogs" });
+    }
+}

@@ -8,9 +8,12 @@ export const useAppStateStore = create((set) => ({
 }));
 
 export const useUserStore = create((set) => ({
-  name: null,
+  userName: null,
   email: null,
   id: null,
+  name: null,
+  createdAt: null,
+  bio: null,
   isAdmin: false,
-  setUser: (name, email, id, isAdmin) => set(() => ({ name, email, id, isAdmin })),
+  setUser: (userName, email, id, createdAt, bio, name, isAdmin) => set(() => ({ userName, email, id, name, createdAt, bio, isAdmin })),
 }));

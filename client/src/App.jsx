@@ -25,18 +25,17 @@ function App() {
     const fetchUserWithCookie = async () => {
       let response = await axios.get(`${serverURI}/api/auth/valid`, { headers: { 'Content-Type': 'application/json' }, withCredentials: true })
       if (response.data.status) {
-        setUser(response.data.user.name, response.data.user.email, response.data.user._id, response.data.user.isAdmin);
+        setUser(response.data.user.userName, response.data.user.email, response.data.user._id, response.data.user.createdAt, response.data.user.bio, response.data.user.name, response.data.user.isAdmin);
         setLogin(true);
       } else throw new Error(response.data.message);
     };
     fetchUserWithCookie();
-
   })
 
   if (ready) {
     return (
-      <div className="bg-transparent">
-        <header className="bg-white shadow-lg w-full p-3">
+      <div className="bg-transparent mt-20">
+        <header className="bg-white shadow-lg w-full p-2 fixed top-0 z-30">
           <NavBar />
         </header>
         <Routes>
