@@ -2,7 +2,6 @@ import { Routes, Route } from "react-router-dom"
 import Home from './pages/Home';
 import Auth from './pages/Auth';
 import Dashboard from './pages/Dashboard';
-import Admin from './pages/Admin';
 import CreatePost from './pages/CreatePost';
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
@@ -15,7 +14,8 @@ import Loader from "./components/Loader";
 
 
 function App() {
-  const ready = useAppStateStore((state) => state.ready)
+  const login = useAppStateStore((state) => state.login);
+  const ready = useAppStateStore((state) => state.ready);
   const setLogin = useAppStateStore((state) => state.setLogin)
   const setReady = useAppStateStore((state) => state.setReady)
   const setUser = useUserStore((state) => state.setUser);
@@ -38,13 +38,17 @@ function App() {
         <header className="bg-white shadow-lg w-full p-2 fixed top-0 z-30">
           <NavBar />
         </header>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/createpost" element={<CreatePost />} />
-        </Routes>
+        {!login ?
+          (<Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/auth" element={<Auth />} />
+          </Routes>) : (<Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/createpost" element={<CreatePost />} />
+          </Routes>)
+        }
         <Footer />
       </div>
     );
