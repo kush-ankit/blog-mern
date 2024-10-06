@@ -1,12 +1,14 @@
 import LimitedDisplay from "./LimitedDisplay";
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
 
 function DashboardBlogCard({ id, authorid, authorName, createdAt, likes, title, content }) {
 
     return (
-        <div className="bg-white rounded-lg border border-black p-6 flex flex-col justify-between gap-2 shadow-xl">
+        <div className="bg-white rounded-lg border border-black p-4 flex flex-col justify-between gap-2 shadow-xl">
             <header className="flex justify-between items-center">
-                <p>{authorName}</p>
+                <p>{AuthorName}</p>
             </header>
 
             <main className="flex flex-col gap-2">
