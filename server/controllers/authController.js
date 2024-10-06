@@ -11,7 +11,7 @@ module.exports.login = async (req, res) => {
             return res.status(401).json({ status: false, message: 'Invalid credentials' });
         }
         const token = await jwt.sign({ id: user._id, userName: user.userName }, process.env.JWT_SECRET);
-        res.cookie('token', token).json({ status: true, user: user });
+        res.cookie('token', token, { httpOnly: false }).json({ status: true, user: user });
     } catch (e) {
         res.status(400).json({ status: false, message: e.message });
     }
@@ -21,7 +21,7 @@ module.exports.register = async (req, res) => {
     try {
         const userDetails = await req.body;
         const hashedPassword = await bcrypt.hash(userDetails.password, 10);
-        const newUser = new User({ email: userDetails.email, password: hashedPassword, userName : userDetails.userName, name: userDetails?.name, bio : userDetails?.bio  });
+        const newUser = new User({ email: userDetails.email, password: hashedPassword, userName: userDetails.userName, name: userDetails?.name, bio: userDetails?.bio });
         await newUser.save();
         res.status(201).json({ status: true, user: newUser });
     } catch (e) {
