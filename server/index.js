@@ -13,11 +13,10 @@ app.use(cors({
   origin: 'http://localhost:5173',
   credentials: true,
 }));
-// const mongoURI = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/blog`;
 
 const connectWithRetry = () => {
   mongoose
-    .connect(process.env.MongoURI)
+    .connect(process.env.mongoURI)
     .then(() => console.log('MongoDB connected successfully'))
     .catch((err) => {
       console.error(err);
