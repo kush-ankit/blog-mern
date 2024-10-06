@@ -7,12 +7,23 @@ const cors = require('cors');
 require('dotenv').config();
 const { MONGO_IP, MONGO_PASSWORD, MONGO_PORT, MONGO_USER } = require('./config/config');
 
+
+const allowedOrigins = ['https://my-bloggs.web.app', 'http://localhost:5173', 'http://localhost:4173', 'https://my-bloggs.firebaseapp.com'];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+};
+
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
-  origin: 'https://my-bloggs.web.app/',
-  credentials: true,
-}));
+app.use(cors(corsOptions));
 
 const connectWithRetry = () => {
   mongoose
