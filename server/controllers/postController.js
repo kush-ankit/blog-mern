@@ -2,7 +2,7 @@ const Blog = require("../models/Blog")
 
 module.exports.getAllPosts = async (req, res, next) => {
     try {
-        const posts = await Blog.find();
+        const posts = await Blog.find().sort({ createdAt: -1 });
         return res.status(200).json({ status: true, posts: posts });
     } catch (e) {
         return res.status(500).json({ status: false, message: e.message });
@@ -81,7 +81,7 @@ module.exports.unlikeBlog = async (req, res) => {
 module.exports.userAllBlogs = async (req, res) => {
     try {
         let userid = req.userid;
-        const blogs = await Blog.find({ authorid: userid }).exec();
+        const blogs = await Blog.find({ authorid: userid }).sort({ createdAt: -1 });
         if (!blogs) {
             return res.status(400).json({ status: false, message: err });
         } else {

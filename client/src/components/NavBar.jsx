@@ -58,7 +58,7 @@ function UserLoginIcon() {
     <Popover>
       <Popover.Trigger className='text-sm'><List.Item>
         <List.ItemStart>
-          {profie_picture}   {/*profile picture import*/}
+          {profie_picture}   
         </List.ItemStart>
         <div>
           <Typography color="default" className="font-semibold" >

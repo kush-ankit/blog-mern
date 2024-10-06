@@ -6,11 +6,12 @@ import LimitedDisplay from "./LimitedDisplay";
 import { useEffect, useState } from "react";
 import { serverURI } from "../config/config";
 import axios from "axios";
-import { useUserStore } from "../global/states";
+import { useAppStateStore, useUserStore } from "../global/states";
 
 
 function HomeBlogCard({ id, authorid, authorName, createdAt, likes, title, content }) {
 
+    const login = useAppStateStore((state) => state.login)
     const userid = useUserStore((state) => state.id)
     const [likeCount, setLikeCount] = useState(likes)
     const [isLiked, setIsLiked] = useState(false)
@@ -25,26 +26,30 @@ function HomeBlogCard({ id, authorid, authorName, createdAt, likes, title, conte
 
 
     async function handleLikeButton() {
-        try {
-            if (!isLiked) {
-                let response = await axios.get(`${serverURI}/api/blog/likePost/${id}`, { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
-                if (response.data.status) {
-                    setIsLiked(true);
-                    setLikeCount(response.data.post.likes);
+        if (login) {
+            try {
+                if (!isLiked) {
+                    let response = await axios.get(`${serverURI}/api/blog/likePost/${id}`, { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
+                    if (response.data.status) {
+                        setIsLiked(true);
+                        setLikeCount(response.data.post.likes);
+                    } else {
+                        console.log(response.data.message);
+                    }
                 } else {
-                    console.log(response.data.message);
+                    let response = await axios.get(`${serverURI}/api/blog/unlikeBlog/${id}`, { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
+                    if (response.data.status) {
+                        setIsLiked(false);
+                        setLikeCount(response.data.blog.likes);
+                    } else {
+                        console.log(response.data.message);
+                    }
                 }
-            }else{
-                let response = await axios.get(`${serverURI}/api/blog/unlikeBlog/${id}`, { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
-                if (response.data.status) {
-                    setIsLiked(false);
-                    setLikeCount(response.data.blog.likes);
-                } else {
-                    console.log(response.data.message);
-                }
+            } catch (error) {
+                console.error(error)
             }
-        } catch (error) {
-            console.error(error)
+        }else{
+            alert("Please login to like the post.")
         }
     }
 
