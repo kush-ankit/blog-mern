@@ -8,7 +8,8 @@ function DashboardBlogCard({ id, authorid, authorName, createdAt, likes, title, 
     return (
         <div className="bg-white rounded-lg border border-black p-4 flex flex-col justify-between gap-2 shadow-xl">
             <header className="flex justify-between items-center">
-                <p>{AuthorName}</p>
+                <p>{authorName}</p>
+                <p className="flex p-2 gap-4"><FaEdit/> <MdDelete/></p>
             </header>
 
             <main className="flex flex-col gap-2">

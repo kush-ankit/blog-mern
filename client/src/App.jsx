@@ -10,6 +10,7 @@ import axios from "axios";
 import { useAppStateStore, useUserStore } from "./global/states";
 import { serverURI } from "./config/config";
 import Loader from "./components/Loader";
+import ReadBlog from "./pages/ReadBlog";
 
 
 
@@ -42,11 +43,13 @@ function App() {
           (<Routes>
             <Route path="/" element={<Home />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/blogspage" element={<ReadBlog />} />
           </Routes>) : (<Routes>
             <Route path="/" element={<Home />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/createpost" element={<CreatePost />} />
+            <Route path="/blogspage" element={<ReadBlog />} />
           </Routes>)
         }
         <Footer />
