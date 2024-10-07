@@ -1,1 +1,1 @@
-export const serverURI = "https://blog-mern-qsck.onrender.com";
+export const serverURI = "https://server-azure-omega.vercel.app";
