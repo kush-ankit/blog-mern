@@ -6,6 +6,7 @@ const port = process.env.PORT || 4000;
 const cors = require('cors');
 require('dotenv').config();
 const { MONGO_IP, MONGO_PASSWORD, MONGO_PORT, MONGO_USER } = require('./config/config');
+const { job } = require('./cron');
 
 
 const allowedOrigins = ['https://my-bloggers.web.app', 'http://localhost:5173', 'http://localhost:4173', 'https://my-bloggers.firebaseapp.com'];
@@ -24,6 +25,8 @@ const corsOptions = {
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
+
+job.start();
 
 const connectWithRetry = () => {
   mongoose
