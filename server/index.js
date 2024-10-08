@@ -8,7 +8,7 @@ require('dotenv').config();
 const { MONGO_IP, MONGO_PASSWORD, MONGO_PORT, MONGO_USER } = require('./config/config');
 
 
-const allowedOrigins = ['https://my-bloggs.web.app', 'http://localhost:5173', 'http://localhost:4173', 'https://my-bloggs.firebaseapp.com'];
+const allowedOrigins = ['https://my-bloggers.web.app', 'http://localhost:5173', 'http://localhost:4173', 'https://my-bloggers.firebaseapp.com'];
 
 const corsOptions = {
   origin: function (origin, callback) {
