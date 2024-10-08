@@ -22,6 +22,7 @@ function App() {
   const setUser = useUserStore((state) => state.setUser);
 
   useEffect(() => {
+    
     setReady(true);
     const fetchUserWithCookie = async () => {
       let response = await axios.get(`${serverURI}/api/auth/valid`, { headers: { 'Content-Type': 'application/json' }, withCredentials: true })
