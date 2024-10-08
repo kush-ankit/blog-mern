@@ -32,3 +32,6 @@ jobs:
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_MY_BLOGGERS }}"
+          entryPoint: client
+        env:
+          FIREBASE_PROJECT_ID: my-bloggers

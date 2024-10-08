@@ -14,6 +14,7 @@ function Home() {
 
   const [loading, setLoading] = useState(true)
   const [blogs, setBlogs] = useState([]);
+  const [error, setError] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,7 +26,7 @@ function Home() {
           setLoading(false);
         }
       } catch (error) {
-        console.error(error);
+        setError(error.message)
       }
     };
     fetchData();
@@ -39,7 +40,7 @@ function Home() {
           {login ? <div>Logged in</div> : <Left_Box />}
         </section>
         <section className="w-[50%] px-6 flex flex-col gap-6">
-          {loading ? <Loader /> : blogs.map((blog) => {
+          {loading ? <div>good to not request</div> : blogs.map((blog) => {
             return <HomeBlogCard id={blog._id} key={blog._id} authorid={blog.authorid} authorName={blog.authorName} createdAt={blog.createdAt} likes={blog.likes} title={blog.title} content={blog.content} />
           })}
         </section>
