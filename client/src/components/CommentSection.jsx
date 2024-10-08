@@ -30,6 +30,26 @@ function CommentSection() {
                     <span className='p-3 text-center ' ><Avatar src="https://dub.sh/TdSBP0D" alt="profile-picture" className="w-8 h-8" /> <p className='p-2 font-light ' >Authorname</p> </span>
                     <p className='p-3 text-start ' > Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt minima delectus odio odit, nam facilis aperiam omnis libero quos perspiciatis!</p>
                 </div>
+                <div className='bg-white rounded-md flex' >
+                    <span className='p-3 text-center ' ><Avatar src="https://dub.sh/TdSBP0D" alt="profile-picture" className="w-8 h-8" /> <p className='p-2 font-light ' >Authorname</p> </span>
+                    <p className='p-3 text-start ' > Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt minima delectus odio odit, nam facilis aperiam omnis libero quos perspiciatis!</p>
+                </div>
+                <div className='bg-white rounded-md flex' >
+                    <span className='p-3 text-center ' ><Avatar src="https://dub.sh/TdSBP0D" alt="profile-picture" className="w-8 h-8" /> <p className='p-2 font-light ' >Authorname</p> </span>
+                    <p className='p-3 text-start ' > Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt minima delectus odio odit, nam facilis aperiam omnis libero quos perspiciatis!</p>
+                </div>
+                <div className='bg-white rounded-md flex' >
+                    <span className='p-3 text-center ' ><Avatar src="https://dub.sh/TdSBP0D" alt="profile-picture" className="w-8 h-8" /> <p className='p-2 font-light ' >Authorname</p> </span>
+                    <p className='p-3 text-start ' > Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt minima delectus odio odit, nam facilis aperiam omnis libero quos perspiciatis!</p>
+                </div>
+                <div className='bg-white rounded-md flex' >
+                    <span className='p-3 text-center ' ><Avatar src="https://dub.sh/TdSBP0D" alt="profile-picture" className="w-8 h-8" /> <p className='p-2 font-light ' >Authorname</p> </span>
+                    <p className='p-3 text-start ' > Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt minima delectus odio odit, nam facilis aperiam omnis libero quos perspiciatis!</p>
+                </div>
+                <div className='bg-white rounded-md flex' >
+                    <span className='p-3 text-center ' ><Avatar src="https://dub.sh/TdSBP0D" alt="profile-picture" className="w-8 h-8" /> <p className='p-2 font-light ' >Authorname</p> </span>
+                    <p className='p-3 text-start ' > Lorem, ipsum dolor sit amet consectetur adipisicing elit. Incidunt minima delectus odio odit, nam facilis aperiam omnis libero quos perspiciatis!</p>
+                </div>
             </section>
   )
 }
