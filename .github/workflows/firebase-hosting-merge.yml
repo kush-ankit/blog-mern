@@ -10,13 +10,25 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: npm run build
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MY_BLOGGERS }}
+          node-version: '16' # Use the node version required for your project
+
+      - name: Install dependencies
+        working-directory: ./client # Navigate to the client directory
+        run: npm install
+
+      - name: Build project
+        working-directory: ./client
+        run: npm run build
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" # Add Firebase service account to GitHub secrets
           channelId: live
-          projectId: my-bloggers
-          path: 'client/'
-          directory: 'client/'
