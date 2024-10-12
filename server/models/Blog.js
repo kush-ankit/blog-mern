@@ -8,6 +8,8 @@ const BlogSchema = new mongoose.Schema({
   status: { type: String, default: 'pending' }, // 'pending', 'approved', 'rejected'
   createdAt: { type: Date, default: Date.now },
   likes: { type: Array },
+  comments: { type: Array },
+  tags: { type: Array, default: ['tech', 'api', 'computer', 'blog'] },
 });
 
 module.exports = mongoose.model('Blog', BlogSchema);

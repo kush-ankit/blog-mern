@@ -22,7 +22,7 @@ function App() {
   const setUser = useUserStore((state) => state.setUser);
 
   useEffect(() => {
-    
+
     setReady(true);
     const fetchUserWithCookie = async () => {
       let response = await axios.get(`${serverURI}/api/auth/valid`, { headers: { 'Content-Type': 'application/json' }, withCredentials: true })
@@ -44,13 +44,13 @@ function App() {
           (<Routes>
             <Route path="/" element={<Home />} />
             <Route path="/auth" element={<Auth />} />
-            <Route path="/blogspage" element={<ReadBlog />} />
+            <Route path="/readblog" element={<ReadBlog />} />
           </Routes>) : (<Routes>
             <Route path="/" element={<Home />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/createpost" element={<CreatePost />} />
-            <Route path="/blogspage" element={<ReadBlog />} />
+            <Route path="/readblog" element={<ReadBlog />} />
           </Routes>)
         }
         <Footer />
