@@ -40,8 +40,8 @@ function Home() {
           {login ? <div>Logged in</div> : <Left_Box />}
         </section>
         <section className="w-[50%] px-6 flex flex-col gap-6">
-          {loading ? <div>good to not request</div> : blogs.map((blog) => {
-            return <HomeBlogCard id={blog._id} key={blog._id} authorid={blog.authorid} authorName={blog.authorName} createdAt={blog.createdAt} likes={blog.likes} title={blog.title} content={blog.content} />
+          {loading ? <div className="h-[100vh]"><Loader /></div> : blogs.map((blog) => {
+            return <HomeBlogCard id={blog._id} key={blog._id} tags={blog.tags} authorid={blog.authorid} authorName={blog.authorName} createdAt={blog.createdAt} likes={blog.likes} title={blog.title} content={blog.content} />
           })}
         </section>
         <section className="w-[25%]">

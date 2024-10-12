@@ -10,7 +10,7 @@ router.delete('/delete/:id', validator, deletePost);
 router.get('/likePost/:id', validator, likePost);
 router.get('/userAllBlogs', validator, userAllBlogs);
 router.get('/unlikeBlog/:id', validator, unlikeBlog);
-router.get('/getOneBlog/:id', validator, getOneBlog);
+router.get('/getOneBlog/:id', getOneBlog);
 router.patch('/updateBlog/:id', validator, updateBlog);
 
 module.exports = router;

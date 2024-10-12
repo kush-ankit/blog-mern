@@ -8,7 +8,7 @@ import axios from "axios";
 import { useAppStateStore, useUserStore } from "../global/states";
 
 
-function HomeBlogCard({ id, authorid, authorName, createdAt, likes, title, content }) {
+function HomeBlogCard({ id, authorid, authorName, createdAt, likes, title, content, tags }) {
 
     const login = useAppStateStore((state) => state.login);
     const userid = useUserStore((state) => state.id);
@@ -47,7 +47,7 @@ function HomeBlogCard({ id, authorid, authorName, createdAt, likes, title, conte
             } catch (error) {
                 console.error(error)
             }
-        }else{
+        } else {
             alert("Please login to like the post.")
         }
     }
@@ -61,14 +61,13 @@ function HomeBlogCard({ id, authorid, authorName, createdAt, likes, title, conte
             </header>
             <main className="flex flex-col gap-2">
                 <h2 className="text-2xl font-bold text-left">
-                    <a href="##" className="hover:text-blue-800">{title}</a>
+                    <a href={`/readblog?id=${id}`} className="hover:text-blue-800">{title}</a>
                 </h2>
                 <p className="list-none flex gap-6 w-full text-sm">
-                    <li>#tech</li>
-                    <li>#Gadgets</li>
-                    <li>#news</li>
-                    <li>#students</li>
-                    <li>#react</li>
+                    {tags.map((tag, index) => {
+                        let code = Math.floor(Math.random() * 16777215).toString(16);
+                        return <li key={index} ><span style={{ color: `#${code}` }}>#</span>{tag}</li>
+                    })}
                 </p>
             </main>
             <hr />

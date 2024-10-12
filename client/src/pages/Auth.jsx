@@ -1,6 +1,3 @@
-// import { useState, useEffect } from 'react';
-// import { useGoogleLogin } from '@react-oauth/google';
-// import axios from 'axios';
 import { useSearchParams } from 'react-router-dom';
 import CreateAccountCard from '../components/CreateAccountCard';
 import { LoginCard } from '../components/LoginCard';
