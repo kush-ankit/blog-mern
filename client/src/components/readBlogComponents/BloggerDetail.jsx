@@ -16,7 +16,7 @@ function BloggerDetail({ tags, createdAt, authorName, title, content }) {
                         return <li key={index} ><span style={{ color: `#${code}` }}>#</span>{tag}</li>
                     })}
                 </p>
-                <p className="text-left text-lg p-2">
+                <p className="text-left text-lg p-2" id="cont">
                     {content}
                 </p>
             </div>

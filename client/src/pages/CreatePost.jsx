@@ -1,7 +1,9 @@
 import axios from "axios";
 import { serverURI } from "../config/config";
 import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { json, useNavigate, useSearchParams } from "react-router-dom";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 
 function CreatePost() {
@@ -12,6 +14,11 @@ function CreatePost() {
     const [content, setContent] = useState("");
     const [queryParameters] = useSearchParams();
     const [isEditing, setIsEditing] = useState(false);
+
+
+    console.log(content);
+    console.log(title);
+
 
 
     useEffect(() => {
@@ -40,6 +47,7 @@ function CreatePost() {
 
 
     function handlePublish() {
+
         axios.post(`${serverURI}/api/blog/create`, { title, content }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true })
             .then((response) => {
                 if (response.data.status) {
@@ -99,12 +107,13 @@ function CreatePost() {
     return (
         <div className="h-[80vh]">
             <main className='flex justify-around p-8 h-full'>
-                <div className='flex flex-col ju gap-4 w-1/2 bg-white p-6 rounded-md shadow-xl'>
+                <div className='flex flex-col gap-4 w-1/2 bg-white p-6 rounded-md shadow-xl'>
                     <div className="">
-                        <input type="text" id="large-input" value={title} className="block w-full p-4 text-gray-900 border border-gray-500 rounded-lg bg-white text-4xl focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-blue-500" placeholder="Title goes here..." onChange={(e) => setTitle(e.target.value)} />
+                        <input type="text" id="large-input" value={title} className="block w-full p-4 text-gray-900 border border-gray-300  bg-white text-4xl focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-blue-500" placeholder="Title goes here..." onChange={(e) => setTitle(e.target.value)} />
                     </div>
-                    <div className="w-full text-black">
-                        <textarea id="content" rows="10" value={content} className="block p-2.5 w-full text-base text-gray-900 bg-gray-50 rounded-lg border border-gray-500 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none" placeholder="Write your content here..." onChange={(e) => setContent(e.target.value)}></textarea>
+                    <div className="w-full text-black mb-8">
+                        {/* <textarea id="content" rows="10" value={content} className="block p-2.5 w-full text-base text-gray-900 bg-gray-50 rounded-lg border border-gray-500 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none" placeholder="Write your content here..." onChange={(e) => setContent(e.target.value)}></textarea> */}
+                        <ReactQuill theme="snow" value={content} onChange={setContent} className="h-[18rem]" />
                     </div>
                     <div className="flex gap-4">
                         {isEditing ? <button type="button" onClick={handleEdit} className="text-white bg-blue-500 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-500 dark:hover:bg-blue-500 focus:outline-none dark:focus:ring-blue-500">Save Changes</button> :
