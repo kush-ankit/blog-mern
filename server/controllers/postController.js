@@ -12,7 +12,6 @@ module.exports.getAllPosts = async (req, res, next) => {
 module.exports.createPost = async (req, res) => {
     try {
         const { title, content } = req.body;
-        console.log(req.body);
         if (title && content) {
             const newBlog = new Blog({ title, content, authorid: req.userid, authorName: req.userName });
             await newBlog.save();
@@ -122,3 +121,5 @@ module.exports.updateBlog = async (req, res) => {
         return res.status(500).json({ status: false, message: error.message });
     }
 }
+
+

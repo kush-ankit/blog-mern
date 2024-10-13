@@ -5,6 +5,8 @@ const User = require('../models/User');
 module.exports.validator = (req, res, next) => {
     try {
         const token = req.cookies.token;
+        console.log(token);
+        
         if (!token) {
             return res.status(403).json({ status: false, message: 'You are not logged in.' });
         }
