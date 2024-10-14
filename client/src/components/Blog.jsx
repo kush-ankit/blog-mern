@@ -7,6 +7,7 @@ import { serverURI } from "../config/config";
 import axios from "axios";
 import { useAppStateStore, useUserStore } from "../global/states";
 import { HashLink } from 'react-router-hash-link';
+import { Link } from "react-router-dom";
 
 
 
@@ -71,7 +72,7 @@ function HomeBlogCard({ id, authorid, authorName, createdAt, likes, title, conte
             </header>
             <main className="flex flex-col gap-2">
                 <h2 className="text-2xl font-bold text-left">
-                    <a href={`/readblog?id=${id}`} className="hover:text-blue-800">{title}</a>
+                    <Link to={`/readblog?id=${id}`} className="hover:text-blue-800">{title}</Link>
                 </h2>
                 <p className="list-none flex gap-6 w-full text-sm">
                     {tags.map((tag, index) => {
