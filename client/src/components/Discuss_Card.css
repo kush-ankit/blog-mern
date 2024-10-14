@@ -1,7 +1,8 @@
 .new::after {
     content: 'New';
     background-color: bisque;
-    border: 1px solid;
+    border: 1px;
     border-radius: 5px;
     padding: 2px;
+    margin-left: 2px;
 }

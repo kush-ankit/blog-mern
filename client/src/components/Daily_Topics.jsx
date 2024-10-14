@@ -1,6 +1,6 @@
 import { Card, List, Typography, Chip } from "@material-tailwind/react";
 
-import {Archive,Computer,EmptyPage,Pin,SendDiagonal,Bin,Movie, LinkXmark} from "iconoir-react";
+import {Computer,Movie,LinkXmark,PlusSquare,VideoCamera,Flask,BrainResearch } from "iconoir-react";
 
 const Links = [
   {
@@ -14,7 +14,7 @@ const Links = [
   },
 
   {
-    icon: SendDiagonal,
+    icon: PlusSquare,
 
     title: "#new",
 
@@ -40,7 +40,7 @@ const Links = [
   },
 
   {
-    icon: Archive,
+    icon: VideoCamera,
 
     title: "#bollywood",
 
@@ -48,9 +48,17 @@ const Links = [
   },
 
   {
-    icon: Bin,
+    icon: Flask,
 
     title: "#science",
+
+    href: "#",
+  },
+
+  {
+    icon: BrainResearch,
+
+    title: "#facts",
 
     href: "#",
   },
@@ -58,11 +66,11 @@ const Links = [
 
   function Daily_Topics() {
   return (
-    <Card className="max-w-[280px]">
-      <Card.Header className="mx-4 mb-0 mt-3 h-max">
+    <Card className="py-2 px-6 sticky top-20 w-fit ml-auto">
+      <Card.Header className=" h-full">
         <Typography className="font-bold text-xl ">My Tags</Typography>
       </Card.Header>
-
+    <hr />
       <Card.Body className="p-3">
         <List className="hover:cursor-pointer"  >
           {Links.map(({ icon: Icon, title, href, badge }) => (

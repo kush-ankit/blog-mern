@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 function Right_Box() {
   return (
-          <div className="border border-black p-4 rounded-md bg-white">
+          <div className="shadow-lg py-4 px-8 rounded-md bg-white w-fit flex flex-col gap-y-2">
             <h2 className="text-2xl font-bold text-left">Popular Topics</h2>
+            <hr />
             <ul className="list-disc list-inside text-left">
               <li>AI</li>
               <li>Cloud Computing</li>
