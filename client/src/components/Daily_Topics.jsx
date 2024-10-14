@@ -1,11 +1,10 @@
 import { Card, List, Typography, Chip } from "@material-tailwind/react";
-import { GrTechnology } from "react-icons/gr";
-import {Archive,EmptyPage,Mail,Pin,SendDiagonal,Bin,} from "iconoir-react";
-import {MdOutlineLocalMovies } from "react-icons/md";
+
+import {Archive,Computer,EmptyPage,Pin,SendDiagonal,Bin,Movie, LinkXmark} from "iconoir-react";
 
 const Links = [
   {
-    icon: "<GrTechnology />",
+    icon: Computer,
 
     title: "#Tech",
 
@@ -25,7 +24,7 @@ const Links = [
   },
 
   {
-    icon: EmptyPage ,
+    icon: Movie ,
 
     title: "#movies",
 
@@ -33,7 +32,7 @@ const Links = [
   },
 
   {
-    icon: Pin,
+    icon: LinkXmark,
 
     title: "#connect",
 
@@ -57,7 +56,6 @@ const Links = [
   },
 ];
 
-console.log(GrTechnology)
   function Daily_Topics() {
   return (
     <Card className="max-w-[280px]">
@@ -69,8 +67,8 @@ console.log(GrTechnology)
         <List className="hover:cursor-pointer"  >
           {Links.map(({ icon: Icon, title, href, badge }) => (
             <List.Item key={title} href={href} className="hover:text-blue-600 hover:font-semibold " >
-              <List.ItemStart >
-                
+              <List.ItemStart>
+                <Icon className="h-[18px] w-[18px]" />
               </List.ItemStart>
 
               {title}
