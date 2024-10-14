@@ -21,7 +21,7 @@ module.exports.addCommentToBlog = async (req, res) => {
 module.exports.getAllCommentByBlogid = async (req, res) => {
     try {
         let blogid = req.params.id;
-        let comments = await Comment.find({ blogid });
+        let comments = await Comment.find({ blogid }).sort({ createdAt: -1 });
         if (!comments) {
             return res.status(401).json({ status: false, message: 'No comments found' });
         } else {

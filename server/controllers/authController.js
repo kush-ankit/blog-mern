@@ -10,8 +10,8 @@ module.exports.login = async (req, res) => {
         if (!user || !(await bcrypt.compare(password, user.password))) {
             return res.status(401).json({ status: false, message: 'Invalid credentials' });
         }
-        const token = await jwt.sign({ id: user._id, userName: user.userName }, process.env.JWT_SECRET);
-        res.cookie('token', token, { maxAge: 900000, httpOnly: true, secure: true, sameSite: 'none'}).json({ status: true, user: user });
+        const token = jwt.sign({ id: user._id, userName: user.userName }, process.env.JWT_SECRET);
+        res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24, secure: true, sameSite: 'none' }).json({ status: true, user: user });
     } catch (e) {
         res.status(400).json({ status: false, message: e.message });
     }

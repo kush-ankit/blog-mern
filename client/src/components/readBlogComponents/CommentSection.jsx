@@ -42,7 +42,7 @@ function CommentSection({ blogid }) {
 
             if (response.data.status) {
                 //Add new comment to comments array
-                setComments([...comments, response.data.comment]);
+                setComments([response.data.comment, ...comments]);
                 setContent("");
             } else {
                 alert("Failed to add comment else")
@@ -54,7 +54,7 @@ function CommentSection({ blogid }) {
     }
 
     return (
-        <section className='grid grid-row-2 gap-y-5 bg-white rounded-md shadow-lg' >
+        <section id='comment' className='grid grid-row-2 gap-y-5 bg-white rounded-md shadow-lg' >
             <div className='rounded-md flex flex-col gap-y-5 px-8 py-4'>
                 <p className='p-2 font-black text-2xl'>Blog Comments</p>
                 <hr />
@@ -66,16 +66,16 @@ function CommentSection({ blogid }) {
                     <button type="button" onClick={handleSubmit} className=' h-10 px-4 text-white rounded-md bg-blue-500 hover:bg-blue-400 border hover:shadow-lg '>SUBMIT</button>
                 </div>
                 <hr />
-            {
-                comments.map((comment, index) => {
-                    return (
-                        <div key={index} className='rounded-md flex px-12' >
-                            <span className='p-3 text-center ' ><Avatar src="https://dub.sh/TdSBP0D" alt="profile-picture" className="w-8 h-8" /> <p className='p-2 font-light ' >{comment?.authorName}</p> </span>
-                            <p className='p-3 text-start ' >{comment?.content}</p>
-                        </div>
-                    )
-                })
-            }
+                {
+                    comments.map((comment, index) => {
+                        return (
+                            <div key={index} className='rounded-md flex px-12' >
+                                <span className='p-3 text-center ' ><Avatar src="https://dub.sh/TdSBP0D" alt="profile-picture" className="w-8 h-8" /> <p className='p-2 font-light ' >{comment?.authorName}</p> </span>
+                                <p className='p-3 text-start ' >{comment?.content}</p>
+                            </div>
+                        )
+                    })
+                }
             </div>
         </section>
     )

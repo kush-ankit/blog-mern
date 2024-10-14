@@ -49,16 +49,16 @@ function UserLoginIcon() {
   const setUser = useUserStore((state) => state.setUser);
 
   function logout() {
+    document.cookie = 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     setUser(null, null, null, null, null, null, null);
     setLogin(false);
-    document.cookie = 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
   }
 
   return (
     <Popover>
       <Popover.Trigger className='text-sm'><List.Item>
         <List.ItemStart>
-          {profie_picture}   
+          {profie_picture}
         </List.ItemStart>
         <div>
           <Typography color="default" className="font-semibold" >
@@ -82,7 +82,7 @@ function UserLoginIcon() {
           <Link to='/createpost'>
             <List.Item>
               <List.ItemStart>
-              <FaRegEdit />
+                <FaRegEdit />
               </List.ItemStart>
               Create Blog
             </List.Item>

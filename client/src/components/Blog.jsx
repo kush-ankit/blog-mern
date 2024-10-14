@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { serverURI } from "../config/config";
 import axios from "axios";
 import { useAppStateStore, useUserStore } from "../global/states";
+import { HashLink } from 'react-router-hash-link';
+
 
 
 function HomeBlogCard({ id, authorid, authorName, createdAt, likes, title, content, tags }) {
@@ -16,6 +18,7 @@ function HomeBlogCard({ id, authorid, authorName, createdAt, likes, title, conte
     const [isLiked, setIsLiked] = useState(false);
 
     useEffect(() => {
+
         if (likes.includes(userid)) {
             setIsLiked(true);
         } else {
@@ -52,6 +55,13 @@ function HomeBlogCard({ id, authorid, authorName, createdAt, likes, title, conte
         }
     }
 
+    async function handleShare() {
+        await navigator.share({
+            title: title,
+            url: `${window.location.origin}/readblog?id=${id}`
+        });
+    }
+
 
     return (
         <div className="bg-white rounded-lg border border-black p-6 flex flex-col gap-3 shadow-md">
@@ -73,8 +83,8 @@ function HomeBlogCard({ id, authorid, authorName, createdAt, likes, title, conte
             <hr />
             <footer className="flex justify-between">
                 <span className="flex justify-center items-center"><button onClick={handleLikeButton} className="flex">{isLiked ? <BiSolidLike size={20} className="text-red-500" /> : <BiLike size={20} />} </button> <p className=" pl-2 pr-1">{likeCount.length}</p><p>likes</p> </span>
-                <span className="flex justify-center items-center"><button className="flex pr-2"><FaRegComment size={20} /> </button><p>comment</p> </span>
-                <span className="flex justify-center items-center"><button className="flex pr-2"><RiShareForwardLine size={20} /> </button><p>share</p> </span>
+                <HashLink to={`/readblog?id=${id}#comment`} smooth className="flex gap-2 items-center"><FaRegComment size={20} /><p>comment</p></HashLink>
+                <span className="flex justify-center items-center"><button onClick={handleShare} className="flex pr-2 gap-2 items-center"><RiShareForwardLine size={20} /><p>share</p> </button> </span>
             </footer>
         </div>
     );

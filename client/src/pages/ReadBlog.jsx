@@ -17,6 +17,13 @@ function ReadBlog() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState();
 
+    function handleScroll() {
+        const element = document.getElementById('comment');
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
     useEffect(() => {
         const fetchBlog = async () => {
             try {
