@@ -46,7 +46,7 @@ function Home() {
             return <HomeBlogCard id={blog._id} key={blog._id} tags={blog.tags} authorid={blog.authorid} authorName={blog.authorName} createdAt={blog.createdAt} likes={blog.likes} title={blog.title} content={blog.content} />
           })}
         </section>
-        <section className="w-[25%] space-y-4 ">
+        <section className="w-[25%] space-y-4">
           <Right_Box />
           <Discuss_Card />
         </section>
