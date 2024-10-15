@@ -91,4 +91,4 @@ function HomeBlogCard({ id, authorid, authorName, createdAt, likes, title, conte
     );
 };
 
-export default HomeBlogCard;
+export default HomeBlogCard ;
