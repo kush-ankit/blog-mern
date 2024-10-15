@@ -5,8 +5,8 @@ function Discuss_Card() {
   return (
     <section className="shadow-lg rounded-md bg-white p-6 space-y-5 sticky top-20">
       <header className="text-left p-1 ">
-        <hr />
         <p className="text-2xl font-bold px-1 ">#Discuss</p>
+        <hr />
         <p className="text-start font-thin text-sm ">
           Discussion threads targetting the whole community
         </p>

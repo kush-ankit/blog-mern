@@ -17,8 +17,8 @@ import ReadBlog from "./pages/ReadBlog";
 function App() {
   const login = useAppStateStore((state) => state.login);
   const ready = useAppStateStore((state) => state.ready);
-  const setLogin = useAppStateStore((state) => state.setLogin)
-  const setReady = useAppStateStore((state) => state.setReady)
+  const setLogin = useAppStateStore((state) => state.setLogin);
+  const setReady = useAppStateStore((state) => state.setReady);
   const setUser = useUserStore((state) => state.setUser);
 
   useEffect(() => {
