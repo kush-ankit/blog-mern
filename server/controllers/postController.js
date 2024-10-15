@@ -68,9 +68,9 @@ module.exports.unlikeBlog = async (req, res) => {
             let index = blog.likes.indexOf(uid);
             blog.likes.splice(index, 1);
             await blog.save();
-            return res.status(200).json({ status: true, message: 'Post liked successfully', blog: blog });
+            return res.status(200).json({ status: true, message: 'Post unliked sorry to see this!!', blog: blog });
         } else {
-            return res.status(400).json({ status: false, message: 'You have already liked this post' });
+            return res.status(400).json({ status: false, message: "You din't liked this post" });
         }
     } catch (error) {
         return res.status(401).json({ status: true, message: "Error liking post" });
@@ -92,7 +92,7 @@ module.exports.userAllBlogs = async (req, res) => {
     }
 };
 
-module.exports.getOneBlog = async (req, res) =>{
+module.exports.getOneBlog = async (req, res) => {
     try {
         let id = req.params.id;
         let blog = await Blog.findById(id);

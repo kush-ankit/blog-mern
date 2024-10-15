@@ -3,6 +3,8 @@ import { useState } from "react";
 import { serverURI } from "../config/config";
 import { useAppStateStore, useUserStore } from "../global/states";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+
 
 function CreateAccountCard() {
 
@@ -16,25 +18,32 @@ function CreateAccountCard() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [bio, setBio] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
+        setLoading(true);
         e.preventDefault();
         try {
             const response = await axios.post(`${serverURI}/api/auth/register`, { userName, bio, name, email, password }, { Headers: { 'content-type': 'application/json' } });
-            if (response.status) {
+            if (response.data.status) {
+                toast.success(response.data.message);
                 try {
                     const response = await axios.post(`${serverURI}/api/auth/login`, { email, password }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
                     if (response.data.status) {
+                        setLoading(false);
+                        toast.success(response.data.message);
                         setUser(response.data.user.userName, response.data.user.email, response.data.user._id, response.data.user.createdAt, response.data.user.bio, response.data.user.name, response.data.user.isAdmin);
                         setLogin(true);
                         nav('/');
                     } else throw new Error(response.data.message);
                 } catch (err) {
-                    console.error(err)
+                    setLoading(false);
+                    toast.error("Login Failed!! " + response.data.message);
                 }
             }
         } catch (error) {
-            console.error(error);
+            setLoading(false);
+            toast.error(error.response.data.message);
         }
 
     }
@@ -59,7 +68,6 @@ function CreateAccountCard() {
                             id="name"
                             name="name"
                             type="text"
-                            required
                             className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             placeholder="Full name"
                             onChange={(e) => setName(e.target.value)}
@@ -112,7 +120,6 @@ function CreateAccountCard() {
                         <textarea
                             id="bio"
                             name="bio"
-                            required
                             className="block w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             placeholder="Bio"
                             onChange={(e) => setBio(e.target.value)}
@@ -124,7 +131,7 @@ function CreateAccountCard() {
                         type="submit"
                         className="w-full px-4 py-2 text-white bg-green-500 border border-transparent rounded-md shadow-sm hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                     >
-                        Continue
+                        {loading ? "Loading..." : "Continue"}
                     </button>
                 </div>
             </form>

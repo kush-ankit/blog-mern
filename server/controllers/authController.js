@@ -6,12 +6,14 @@ const User = require('../models/User');
 module.exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
+        console.log(email, password);
+
         const user = await User.findOne({ email });
         if (!user || !(await bcrypt.compare(password, user.password))) {
             return res.status(401).json({ status: false, message: 'Invalid credentials' });
         }
         const token = jwt.sign({ id: user._id, userName: user.userName }, process.env.JWT_SECRET);
-        res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24, secure: true, sameSite: 'none' }).json({ status: true, user: user });
+        res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24, secure: true, sameSite: 'none' }).json({ status: true, user: user, message: `${user.userName} is Logged in succesfully` });
     } catch (e) {
         res.status(400).json({ status: false, message: e.message });
     }
@@ -23,7 +25,7 @@ module.exports.register = async (req, res) => {
         const hashedPassword = await bcrypt.hash(userDetails.password, 10);
         const newUser = new User({ email: userDetails.email, password: hashedPassword, userName: userDetails.userName, name: userDetails?.name, bio: userDetails?.bio });
         await newUser.save();
-        res.status(201).json({ status: true, user: newUser });
+        res.status(201).json({ status: true, user: newUser, message: "Account created succesfully" });
     } catch (e) {
         res.status(400).json({ status: false, message: e.message });
     }

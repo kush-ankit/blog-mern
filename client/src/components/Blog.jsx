@@ -1,13 +1,13 @@
 import { Avatar } from "@material-tailwind/react";
-import { BiLike, BiSolidLike } from "react-icons/bi";
-import { FaRegComment } from "react-icons/fa";
-import { RiShareForwardLine } from "react-icons/ri";
+import { BiLike, BiShareAlt, BiSolidLike } from "react-icons/bi";
+import { GoComment } from "react-icons/go";
 import { useEffect, useState } from "react";
 import { serverURI } from "../config/config";
 import axios from "axios";
 import { useAppStateStore, useUserStore } from "../global/states";
 import { HashLink } from 'react-router-hash-link';
 import { Link } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 
 
@@ -36,23 +36,44 @@ function HomeBlogCard({ id, authorid, authorName, createdAt, likes, title, conte
                     if (response.data.status) {
                         setIsLiked(true);
                         setLikeCount(response.data.post.likes);
+                        toast.success(response.data.message, {
+                            style: { color: "black" },
+                            position: "bottom-right"
+                        })
                     } else {
-                        console.log(response.data.message);
+                        toast.error(response.data.message, {
+                            style: { color: "black" },
+                            position: "bottom-right"
+                        })
                     }
                 } else {
                     let response = await axios.get(`${serverURI}/api/blog/unlikeBlog/${id}`, { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
                     if (response.data.status) {
                         setIsLiked(false);
                         setLikeCount(response.data.blog.likes);
+                        toast.warning(response.data.message, {
+                            style: { color: "black" },
+                            position: "bottom-right"
+                        })
+
                     } else {
-                        console.log(response.data.message);
+                        toast.error(response.data.message, {
+                            style: { color: "black" },
+                            position: "bottom-right"
+                        })
                     }
                 }
             } catch (error) {
-                console.error(error)
+                toast.error(error.message, {
+                    style: { color: "black" },
+                    position: "bottom-right"
+                })
             }
         } else {
-            alert("Please login to like the post.")
+            toast.warning("You Are not Logged in. Please ensure your Login", {
+                style: { color: "black" },
+                position: "bottom-right"
+            })
         }
     }
 
@@ -84,11 +105,11 @@ function HomeBlogCard({ id, authorid, authorName, createdAt, likes, title, conte
             <hr />
             <footer className="flex justify-between">
                 <span className="flex justify-center items-center"><button onClick={handleLikeButton} className="flex">{isLiked ? <BiSolidLike size={20} className="text-red-500" /> : <BiLike size={20} />} </button> <p className=" pl-2 pr-1">{likeCount.length}</p><p>likes</p> </span>
-                <HashLink to={`/readblog?id=${id}#comment`} smooth className="flex gap-2 items-center"><FaRegComment size={20} /><p>comment</p></HashLink>
-                <span className="flex justify-center items-center"><button onClick={handleShare} className="flex pr-2 gap-2 items-center"><RiShareForwardLine size={20} /><p>share</p> </button> </span>
+                <HashLink to={`/readblog?id=${id}#comment`} smooth className="flex gap-2 items-center"><GoComment size={20} /><p>comment</p></HashLink>
+                <span className="flex justify-center items-center"><button onClick={handleShare} className="flex pr-2 gap-2 items-center"><BiShareAlt size={20} /><p>share</p> </button> </span>
             </footer>
         </div>
     );
 };
 
-export default HomeBlogCard ;
+export default HomeBlogCard;

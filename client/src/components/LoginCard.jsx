@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useAppStateStore, useUserStore } from "../global/states";
 import { useNavigate } from "react-router-dom";
 import { serverURI } from "../config/config";
+import { toast } from 'react-toastify';
+
 
 export const LoginCard = () => {
 
@@ -12,24 +14,21 @@ export const LoginCard = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+
+
 
   const validateEmail = (email) => {
     const re = /\S+@\S+\.\S+/;
     return re.test(String(email).toLowerCase());
   };
-
-
-
   const validateForm = () => {
     const validationErrors = {};
-
     if (!email) {
       validationErrors.email = "Email is required";
     } else if (!validateEmail(email)) {
       validationErrors.email = "Invalid email address";
     }
-
     if (!password) {
       validationErrors.password = "Password is required";
     } else if (password.length < 1) {
@@ -38,25 +37,35 @@ export const LoginCard = () => {
     return validationErrors;
   };
 
+
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
 
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
+      toast.error(JSON.stringify(validationErrors))
       return;
     }
 
     try {
       const response = await axios.post(`${serverURI}/api/auth/login`, { email, password }, { headers: { 'Content-Type': 'application/json' }, withCredentials: true });
-      console.log(response.data);
+      setLoading(false);
       if (response.data.status) {
+        toast.success(response.data.message, {
+          style: { color: "black" },
+          position: "bottom-right"
+        })
         setUser(response.data.user.userName, response.data.user.email, response.data.user._id, response.data.user.createdAt, response.data.user.bio, response.data.user.name, response.data.user.isAdmin);
         setLogin(true);
         nav('/');
       } else throw new Error(response.data.message);
     } catch (err) {
-      setErrors({ server: 'Invalid email or password', err });
+      setLoading(false);
+      toast.error(err.message, {
+        style: { color: "black" },
+        position: "bottom-right"
+      })
     }
   };
 
@@ -87,7 +96,6 @@ export const LoginCard = () => {
               placeholder="Email address"
               onChange={(e) => setEmail(e.target.value)}
             />
-            {errors.email && <p className="text-red-500">{errors.email}</p>}
           </div>
           <div>
             <label htmlFor="password" className="sr-only">
@@ -102,16 +110,14 @@ export const LoginCard = () => {
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
             />
-            {errors.password && <p className="text-red-500">{errors.password}</p>}
           </div>
         </div>
-        {errors.server && <p className="text-red-500">{errors.server}</p>}
         <div>
           <button
             type="submit"
             className="w-full px-4 py-2 text-white bg-green-500 border border-transparent rounded-md shadow-sm hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
           >
-            Continue
+            {loading ? "Loading..." : "Continue"}
           </button>
         </div>
       </form>

@@ -11,6 +11,8 @@ import { useAppStateStore, useUserStore } from "./global/states";
 import { serverURI } from "./config/config";
 import Loader from "./components/Loader";
 import ReadBlog from "./pages/ReadBlog";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 
@@ -36,6 +38,7 @@ function App() {
   if (ready) {
     return (
       <div className="bg-transparent mt-20">
+        <ToastContainer />
         <header className="bg-white shadow-lg w-full p-2 fixed top-0 z-30">
           <NavBar />
         </header>

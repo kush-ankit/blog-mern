@@ -10,6 +10,8 @@ import {
   List,
 } from "@material-tailwind/react";
 import { FaRegEdit } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
+
 
 
 function NavBar() {
@@ -52,6 +54,9 @@ function UserLoginIcon() {
     document.cookie = 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     setUser(null, null, null, null, null, null, null);
     setLogin(false);
+    toast.warning("You are logged out successfully",{
+      position: "bottom-right",
+    })
   }
 
   return (

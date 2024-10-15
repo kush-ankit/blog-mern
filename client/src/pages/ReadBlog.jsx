@@ -48,7 +48,7 @@ function ReadBlog() {
         return (
             <div className='flex'>
                 <div className='min-w-[70%] space-y-4 p-6'>
-                    <BloggerDetail createdAt={blog?.createdAt} tags={blog?.tags} authorName={blog?.authorName} title={blog?.title} content={blog?.content} likes={blog.likes} />
+                    <BloggerDetail id={blog?._id} createdAt={blog?.createdAt} tags={blog?.tags} authorName={blog?.authorName} title={blog?.title} content={blog?.content} likes={blog.likes} />
                     <CommentSection blogid={blog?._id} />
                 </div>
                 <div className=' min-w-[30%] p-6'>
