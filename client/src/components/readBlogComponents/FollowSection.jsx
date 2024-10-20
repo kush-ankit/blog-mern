@@ -29,7 +29,7 @@ function FollowSection({ userid }) {
     }, []);
 
     return (
-        <div className="max-w-md mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
+        <div className="hidden md:block max-w-md mx-auto bg-white rounded-lg overflow-hidden shadow-lg">
             {loading ? <div className='min-h-[30rem] grid place-content-center'><Loader /></div> :
                 <>
                     <div className="bg-indigo-900 p-6 h-14"></div>

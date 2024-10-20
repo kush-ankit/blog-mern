@@ -79,7 +79,7 @@ function BloggerDetail({ id, tags, createdAt, authorName, title, content, likes 
     }
 
     return (
-        <main className="md:p-12 md:w-full w-[90%] ml-5 md:ml-0 border border-neutral-300 outline outline-1  mt-4 bg-white rounded-lg shadow-lg">
+        <main className="md:p-12 p-2 w-full m-auto bg-white rounded-lg shadow-lg">
             <div className="flex items-center p-4 md:p-0 justify-between gap-2 text-xs md:mb-6">
                 <div className='flex left-0 space-x-1 '>
                     <Avatar src="https://dub.sh/TdSBP0D" alt="profile-picture" className="w-8 h-8" />
@@ -92,7 +92,7 @@ function BloggerDetail({ id, tags, createdAt, authorName, title, content, likes 
             </div>
             <hr />
             <div className="flex flex-col gap-2 md:w-full">
-                <h1 className="md:text-5xl text-lg md:mt-2 md:text-left">
+                <h1 className="md:text-5xl text-2xl md:text-left">
                     <p className='p-2 md:font-black font-bold '>{title}</p>
                 </h1>
                 <p className="list-none flex gap-6 p-2 w-full font-semibold text-sm">

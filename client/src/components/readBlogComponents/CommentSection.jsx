@@ -58,9 +58,9 @@ function CommentSection({ blogid }) {
             <div className='rounded-md flex flex-col gap-y-5 px-8 py-4'>
                 <p className='p-2 font-black text-2xl'>Blog Comments</p>
                 <hr />
-                <div className='p-3 flex gap-4 items-center'>
+                <div className='md:p-3 flex gap-4 items-center'>
                     <Avatar src="https://dub.sh/TdSBP0D" alt="profile-picture" className="w-8 h-8" />
-                    <textarea name="commments" value={content} placeholder="Add Your Comment" className='w-full p-2 border-gray-400 outline-gray-600 h-28 overflow-hidden text-lg font-medium border shadow-md rounded-sm' onChange={e => setContent(e.target.value)} ></textarea>
+                    <textarea name="commments" value={content} placeholder="Add Your Comment" className='w-full p-2 md:border-gray-400 md:outline-gray-600 md:h-28 overflow-hidden text-lg font-medium border shadow-md rounded-sm' onChange={e => setContent(e.target.value)} ></textarea>
                 </div>
                 <div className='px-4 p-2 flex justify-end'>
                     <button type="button" onClick={handleSubmit} className=' h-10 px-4 text-white rounded-md bg-blue-500 hover:bg-blue-400 border hover:shadow-lg '>SUBMIT</button>
@@ -69,7 +69,7 @@ function CommentSection({ blogid }) {
                 {
                     comments.map((comment, index) => {
                         return (
-                            <div key={index} className='rounded-md flex px-12' >
+                            <div key={index} className='rounded-md flex md:px-12 p-2 ' >
                                 <span className='p-3 text-center ' ><Avatar src="https://dub.sh/TdSBP0D" alt="profile-picture" className="w-8 h-8" /> <p className='p-2 font-light ' >{comment?.authorName}</p> </span>
                                 <p className='p-3 text-start ' >{comment?.content}</p>
                             </div>
