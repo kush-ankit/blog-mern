@@ -37,16 +37,16 @@ function Home() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <main className="flex-grow flex flex-row justify-center text-center p-4">
-        <section className="w-[25%]">
-          {login ? <Daily_Topics /> : <Left_Box />}
+      <main className="flex-grow flex flex-row justify-center text-center md:p-4 p-2">
+        <section className="w-[25%] hidden md:block">
+          {login ? <Daily_Topics /> : <Left_Box  />}
         </section>
-        <section className="w-[50%] px-6 flex flex-col gap-6">
+        <section className="md:w-[50%] md:px-6 flex flex-col md:gap-6 gap-2">
           {loading ? <div className="h-[100vh]"><Loader /></div> : blogs.map((blog) => {
             return <HomeBlogCard id={blog._id} key={blog._id} tags={blog.tags} authorid={blog.authorid} authorName={blog.authorName} createdAt={blog.createdAt} likes={blog.likes} title={blog.title} content={blog.content} />
           })}
         </section>
-        <section className="w-[25%] space-y-4">
+        <section className="md:w-[25%] hidden md:block space-y-4">
           <Right_Box />
           <Discuss_Card />
         </section>

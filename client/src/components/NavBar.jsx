@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useAppStateStore, useUserStore } from '../global/states';
 import { MdOutlineDashboard } from "react-icons/md";
-import { IoLogOutOutline } from "react-icons/io5";
+import { IoLogOutOutline, IoMenu, IoSearch } from "react-icons/io5";
 import { MdDarkMode } from "react-icons/md";
 import {
   Popover,
@@ -22,19 +22,24 @@ function NavBar() {
     <div className="container mx-auto flex items-center justify-between " >
       <Link to='/' className='flex items-center' >
         <img className='w-12 h-12' src="https://i.ibb.co/S0dWnZC/file.png" alt="Logo image" />
-        <h1 className="text-3xl font-bold text-gray-800">Blog App</h1>
+        <h1 className="text-xl md:text-3xl  font-bold text-gray-800">Blog App</h1>
       </Link>
-      <div className='flex flex-grow justify-around'>
+      <div className='hidden md:flex flex-grow justify-around'>
         <input type="text" placeholder='Search' name='Search' className='border w-1/2 border-black rounded-md outline-none py-2 px-3 justify-center' id="" />
       </div>
-      {login ? <UserLoginIcon /> : <nav className="flex gap-4">
-        <Link to="/auth?state=create-account" className="bg-blue-500 text-white px-5 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
+      
+      {login ? <UserLoginIcon /> : <><nav className="flex gap-4 px-4">
+        <Link to="/auth?state=create-account" className="hidden md:flex bg-blue-500 text-white px-5 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
           Create account
         </Link>
-        <Link to="/auth?state=login" className="bg-green-500 text-white px-5 py-2 rounded-lg hover:bg-green-600 transition duration-300">
+        <div className='md:hidden flex flex-grow justify-around'>
+        <IoSearch size={25} />
+      </div>
+        <Link to="/auth?state=login" className="hidden md:flex bg-green-500 text-white px-5 py-2 rounded-lg hover:bg-green-600 transition duration-300">
           Log in
         </Link>
-      </nav>}
+        <div className='md:hidden'><IoMenu  size={25}/></div>
+      </nav> </>}
     </div>
   )
 }
@@ -54,7 +59,7 @@ function UserLoginIcon() {
     document.cookie = 'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     setUser(null, null, null, null, null, null, null);
     setLogin(false);
-    toast.warning("You are logged out successfully",{
+    toast.warning("You are logged out successfully", {
       position: "bottom-right",
     })
   }
