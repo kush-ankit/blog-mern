@@ -1,1 +1,1 @@
-export const serverURI = "https://blog-mern-qsck.onrender.com";
+export const serverURI = "http://192.168.1.40:4000";

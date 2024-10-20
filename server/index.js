@@ -9,7 +9,7 @@ const { MONGO_IP, MONGO_PASSWORD, MONGO_PORT, MONGO_USER } = require('./config/c
 const { job } = require('./cron');
 
 
-const allowedOrigins = ['https://my-bloggers.web.app', 'http://localhost:5173', 'http://localhost:4173', 'https://my-bloggers.firebaseapp.com'];
+const allowedOrigins = ['https://my-bloggers.web.app', 'http://localhost:5173', 'http://localhost:4173', 'https://my-bloggers.firebaseapp.com','http://192.168.1.40:5173'];
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -44,6 +44,6 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/user", require("./routes/user"));
 app.use("/api/comment", require("./routes/comment"));
 
-app.listen(port, () => {
+app.listen(port,'192.168.1.40',() => {
   console.log('Server is running on port', port);
 });
