@@ -7,7 +7,7 @@ import axios from "axios";
 import { serverURI } from "../config/config";
 
 
-function DashboardBlogCard({ id, refreshHandler, authorid, authorName, createdAt, likes, title, content }) {
+function DashboardBlogCard({ id, refreshHandler, authorid, tags, authorName, createdAt, likes, title, content }) {
 
     async function handleDeleteButton() {
         await axios.delete(`${serverURI}/api/blog/delete/${id}`, { withCredentials: true })
@@ -19,7 +19,7 @@ function DashboardBlogCard({ id, refreshHandler, authorid, authorName, createdAt
     };
 
     return (
-        <div className="bg-white rounded-lg border border-black p-4 flex flex-col justify-between gap-2 shadow-xl">
+        <div className="bg-white rounded-lg border border-gray-400 p-4 flex flex-col justify-between gap-2 w-full shadow-xl overflow-hidden">
             <header className="flex items-center justify-between gap-2 text-xs">
                 <div className="flex gap-2">
                     <Avatar src="https://dub.sh/TdSBP0D" alt="profile-picture" className="w-8 h-8" />
@@ -32,17 +32,13 @@ function DashboardBlogCard({ id, refreshHandler, authorid, authorName, createdAt
             </header>
             <main className="flex flex-col gap-2">
                 <h2 className="text-2xl font-bold text-left">
-                    <a href="##" className="hover:text-blue-800">{title}</a>
+                    <Link to={`/readblog?id=${id}`} className="hover:text-blue-800">{title}</Link>
                 </h2>
-                <p className="list-none flex gap-6 w-full">
-                    <li>#tech</li>
-                    <li>#Gadgets</li>
-                    <li>#news</li>
-                    <li>#students</li>
-                    <li>#react</li>
-                </p>
-                <p className="text-left">
-                    <LimitedDisplay text={content} limit={100} /> <a href="##" className="hover:text-blue-800"> Read more...</a>
+                <p className="list-none flex gap-6 w-full text-sm">
+                    {tags.map((tag, index) => {
+                        let code = Math.floor(Math.random() * 16777215).toString(16);
+                        return <li key={index} ><span style={{ color: `#${code}` }}>#</span>{tag}</li>
+                    })}
                 </p>
             </main>
             <footer className="flex justify-between text-center items-end">

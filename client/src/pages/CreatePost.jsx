@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { json, useNavigate, useSearchParams } from "react-router-dom";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { toast } from 'react-toastify';
 
 
 function CreatePost() {
@@ -30,7 +31,7 @@ function CreatePost() {
                     setTitle(response.data.blog.title);
                     setContent(response.data.blog.content);
                 } else {
-                    alert("Failed to load the blog.");
+                    toast.error("Failed to load the blog")
                 }
             })();
         } else {
@@ -58,14 +59,13 @@ function CreatePost() {
                     }
                     setTitle("");
                     setContent("");
-                    alert("Post published successfully!");
+                    toast.success("Post published successfully!");
                 } else {
-                    alert("Failed to publish the post.");
+                    toast.error("Failed to publish the post.");
                 }
             })
             .catch((error) => {
-                console.error("Error publishing the post:", error);
-                alert("Failed to publish the post.");
+                toast.error("Failed to publish the post.");
             });
 
     }
@@ -74,11 +74,11 @@ function CreatePost() {
         axios.patch(`${serverURI}/api/blog/updateBlog/${queryParameters.get('id')}`, { title, content }, { withCredentials: true, headers: { 'Content-Type': 'application/json' } })
             .then((response) => {
                 if (response.data.status) {
-                    alert("Blog updated successfully!");
+                    toast.success("Blog updated successfully!");
                     setIsEditing(false);
                     nav('/dashboard')
                 } else {
-                    alert("Failed to update the blog.");
+                    toast.error("Failed to update the blog.");
                 }
             })
     }
@@ -88,10 +88,9 @@ function CreatePost() {
             window.localStorage.setItem("title", JSON.stringify(title));
             window.localStorage.setItem("content", JSON.stringify(content));
             setIsDraft(true);
-            alert("Draft saved successfully!");
+            toast.success("Draft saved successfully!");
         } catch (e) {
-            console.error("Failed to save draft:", e);
-            alert("Failed to save draft.");
+            toast.error("Failed to save draft.");
         }
     }
 
@@ -105,24 +104,23 @@ function CreatePost() {
 
 
     return (
-        <div className="h-[80vh]">
-            <main className='flex justify-around p-8 h-full'>
-                <div className='flex flex-col gap-4 w-1/2 bg-white p-6 rounded-md shadow-xl'>
+        <div className="md:h-[80vh] h-full">
+            <main className='flex justify-around md:p-8 h-full'>
+                <div className='flex flex-col gap-4 md:w-1/2 w-full h-full bg-white md:p-6 p-3 rounded-md shadow-xl'>
                     <div className="">
                         <input type="text" id="large-input" value={title} className="block w-full p-4 text-gray-900 border border-gray-300  bg-white text-4xl focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-blue-500" placeholder="Title goes here..." onChange={(e) => setTitle(e.target.value)} />
                     </div>
-                    <div className="w-full text-black mb-8">
-                        {/* <textarea id="content" rows="10" value={content} className="block p-2.5 w-full text-base text-gray-900 bg-gray-50 rounded-lg border border-gray-500 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 outline-none" placeholder="Write your content here..." onChange={(e) => setContent(e.target.value)}></textarea> */}
-                        <ReactQuill theme="snow" value={content} onChange={setContent} className="h-[18rem]" />
+                    <div className="w-full text-black mb-12 block ">
+                        <ReactQuill theme="snow" value={content} onChange={setContent} className="md:h-[16rem] h-[21rem]" />
                     </div>
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 mt-8 md:mt-0">
                         {isEditing ? <button type="button" onClick={handleEdit} className="text-white bg-blue-500 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-500 dark:hover:bg-blue-500 focus:outline-none dark:focus:ring-blue-500">Save Changes</button> :
                             <button type="button" onClick={handlePublish} className="text-white bg-blue-500 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-500 dark:hover:bg-blue-500 focus:outline-none dark:focus:ring-blue-500">Publish</button>}
                         <button type="button" onClick={handleSaveDraft} className="text-green-500 hover:text-white border border-green-700 hover:bg-green-500 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-green-500 dark:text-green-500 dark:hover:text-white dark:hover:bg-green-600 dark:focus:ring-green-800">{isDraft ? "Drafted data" : "Save Draft"}</button>
                         <button type="button" onClick={handleReset} className="text-red-500 hover:text-white border border-red-500 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">Reset</button>
                     </div>
                 </div>
-                <div className="w-2/6 grid place-content-center">
+                <div className="w-2/6 md:grid place-content-center hidden">
                     <p>
                         Writing a Great Post Title
                         <li>Think of your post title as a super short (but compelling!) description — like an overview of the actual post in one short sentence.</li>
