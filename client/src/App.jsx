@@ -39,7 +39,7 @@ function App() {
     return (
       <div className="bg-transparent md:mt-20 mt-14">
         <ToastContainer />
-        <header className="bg-white shadow-lg w-full md:p-2 p-1 fixed top-0 z-30">
+        <header className="bg-white shadow-lg w-full md:p-2 fixed top-0 z-30">
           <NavBar />
         </header>
         {!login ?
