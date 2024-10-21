@@ -79,8 +79,8 @@ function BloggerDetail({ id, tags, createdAt, authorName, title, content, likes 
     }
 
     return (
-        <main className="p-12 w-full bg-white rounded-lg shadow-lg">
-            <div className="flex items-center justify-between gap-2 text-xs mb-6">
+        <main className="md:p-12 p-2 w-full m-auto bg-white rounded-lg shadow-lg">
+            <div className="flex items-center p-4 md:p-0 justify-between gap-2 text-xs md:mb-6">
                 <div className='flex left-0 space-x-1 '>
                     <Avatar src="https://dub.sh/TdSBP0D" alt="profile-picture" className="w-8 h-8" />
                     <p className="flex flex-col items-start"><span className="text-sm">{authorName}</span><span>{createdAt.slice(0, 10)}</span></p>
@@ -91,9 +91,9 @@ function BloggerDetail({ id, tags, createdAt, authorName, title, content, likes 
                 </div>
             </div>
             <hr />
-            <div className="flex flex-col gap-2 w-full">
-                <h1 className="text-5xl mt-2 text-left">
-                    <p className='p-2 font-black'>{title}</p>
+            <div className="flex flex-col gap-2 md:w-full">
+                <h1 className="md:text-5xl text-2xl md:text-left">
+                    <p className='p-2 md:font-black font-bold '>{title}</p>
                 </h1>
                 <p className="list-none flex gap-6 p-2 w-full font-semibold text-sm">
                     {tags.map((tag, index) => {
@@ -101,7 +101,7 @@ function BloggerDetail({ id, tags, createdAt, authorName, title, content, likes 
                         return <li key={index} ><span style={{ color: `#${code}` }}>#</span>{tag}</li>
                     })}
                 </p>
-                <p id='abc' dangerouslySetInnerHTML={{ __html: content }} className="text-left p-2">
+                <p id='abc' dangerouslySetInnerHTML={{ __html: content }} className="text-left p-2  ">
                 </p>
             </div>
             <ToastContainer />

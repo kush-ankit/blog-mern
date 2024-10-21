@@ -50,7 +50,7 @@ function CreateAccountCard() {
 
     return (
         <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col md:items-center">
                 <h2 className="text-2xl font-semibold text-center text-gray-900">
                     Welcome
                 </h2>

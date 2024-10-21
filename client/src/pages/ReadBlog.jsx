@@ -46,17 +46,24 @@ function ReadBlog() {
     if (loading) { return (<div className='h-[100vh]'><Loader /></div>) }
     else {
         return (
-            <div className='flex'>
-                <div className='min-w-[70%] space-y-4 p-6'>
-                    <BloggerDetail id={blog?._id} createdAt={blog?.createdAt} tags={blog?.tags} authorName={blog?.authorName} title={blog?.title} content={blog?.content} likes={blog.likes} />
-                    <CommentSection blogid={blog?._id} />
+            <>
+                <div className='flex flex-col md:flex-row'>
+                    <div className='md:min-w-[70%] md:p-6 flex flex-col justify-center  gap-4'>
+                        <BloggerDetail id={blog?._id} createdAt={blog?.createdAt} tags={blog?.tags} authorName={blog?.authorName} title={blog?.title} content={blog?.content} likes={blog.likes} />
+                        <CommentSection blogid={blog?._id} />
+                        {/* <div className=' min-w-[30%] p-6 md:hidden block '>
+                            <FollowSection userid={blog?.authorid} />
+                            <MorePosts />
+                            <AdsSection />
+                        </div> */}
+                    </div>
+                    <div className=' min-w-[30%] md:p-6 space-y-4 '>
+                        <FollowSection userid={blog?.authorid} />
+                        <MorePosts />
+                        <AdsSection />
+                    </div>
                 </div>
-                <div className=' min-w-[30%] p-6'>
-                    <FollowSection userid={blog?.authorid} />
-                    <MorePosts />
-                    <AdsSection />
-                </div>
-            </div>
+            </>
         )
     }
 }
