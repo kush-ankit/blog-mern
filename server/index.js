@@ -44,6 +44,6 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/user", require("./routes/user"));
 app.use("/api/comment", require("./routes/comment"));
 
-app.listen(port,'192.168.1.142',() => {
+app.listen(port,() => {
   console.log('Server is running on port', port);
 });
