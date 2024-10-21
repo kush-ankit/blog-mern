@@ -57,7 +57,7 @@ function ReadBlog() {
                             <AdsSection />
                         </div> */}
                     </div>
-                    <div className=' min-w-[30%] md:p-6 py-4 md:space-y-4 '>
+                    <div className=' min-w-[30%] md:p-6 space-y-4 '>
                         <FollowSection userid={blog?.authorid} />
                         <MorePosts />
                         <AdsSection />
