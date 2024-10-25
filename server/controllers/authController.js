@@ -13,7 +13,7 @@ module.exports.login = async (req, res) => {
             return res.status(401).json({ status: false, message: 'Invalid credentials' });
         }
         const token = jwt.sign({ id: user._id, userName: user.userName }, process.env.JWT_SECRET);
-        res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24, secure: true, sameSite: 'none' }).json({ status: true, user: user, message: `${user.userName} is Logged in succesfully` });
+        res.cookie('token', token, { maxAge: 1000 * 60 * 60 * 24, secure: true, sameSite: 'none', httpOnly: true }).json({ status: true, user: user, message: `${user.userName} is Logged in succesfully` });
     } catch (e) {
         res.status(400).json({ status: false, message: e.message });
     }
