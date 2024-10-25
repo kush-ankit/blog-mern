@@ -80,7 +80,7 @@ function HomeBlogCard({ id, authorid, authorName, createdAt, likes, title, conte
     async function handleShare() {
         await navigator.share({
             title: title,
-            url: `${window.location.origin}/readblog?id=${id}`
+            url: `${window.location.origin}/#/readblog?id=${id}`
         });
     }
 
