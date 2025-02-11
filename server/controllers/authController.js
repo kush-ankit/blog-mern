@@ -35,7 +35,6 @@ module.exports.register = async (req, res) => {
 module.exports.validate = (req, res, next) => {
     try {
         const token = req.cookies.token;
-        console.log(token)
         if (!token) {
             return res.status(401).json({ status: false, message: 'token not found' });
         }

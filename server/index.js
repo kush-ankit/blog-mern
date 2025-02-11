@@ -9,7 +9,7 @@ const { MONGO_IP, MONGO_PASSWORD, MONGO_PORT, MONGO_USER } = require('./config/c
 const { job } = require('./cron');
 
 
-const allowedOrigins = ['https://my-bloggers.web.app'];
+const allowedOrigins = ['https://my-bloggers.web.app','http://localhost:5173'];
 
 const corsOptions = {
   origin: function (origin, callback) {
